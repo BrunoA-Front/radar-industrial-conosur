@@ -339,6 +339,7 @@
         map.on("mousemove", `dots-${level}`, (e) => onHover(level, e));
         map.on("mouseleave", `dots-${level}`, clearHover);
         map.on("click", `dots-${level}`, (e) => {
+          clearHover();
           const g = state.groups[level][e.features[0].id];
           if (g) openZone(level, g.key, true);
         });
@@ -355,6 +356,7 @@
       });
 
       map.on("zoom", onZoom);
+      map.on("movestart", (e) => { if (e.originalEvent === undefined) clearHover(); });
       onZoom();
       if (revealed) flyHome();
     });
@@ -463,7 +465,17 @@
       b.type = "button";
       b.textContent = l.label;
       b.setAttribute("aria-pressed", String(state.level === l.id));
-      b.addEventListener("click", () => map && map.easeTo({ zoom: l.zoom, pitch: 52, duration: reducedMotion ? 0 : 1200 }));
+      b.addEventListener("click", () => {
+        if (!map) return;
+        // al bajar de nivel, centrar en la zona más activa del nivel actual
+        const order = LEVELS.map((x) => x.id);
+        const deeper = order.indexOf(l.id) > order.indexOf(state.level);
+        const top = state.groups[state.level][0];
+        const opts = { zoom: l.zoom, pitch: 52, duration: reducedMotion ? 0 : 1400 };
+        if (l.id === "country") opts.center = [-60, -27];
+        else if (deeper && top) opts.center = [top.lon, top.lat];
+        map.easeTo(opts);
+      });
       return b;
     }));
     $("level-hint").textContent = LEVELS.find((l) => l.id === state.level).hint;
