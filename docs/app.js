@@ -1,186 +1,452 @@
 (() => {
   "use strict";
 
+  // ---------------------------------------------------------------------------
+  // Configuración
+  // ---------------------------------------------------------------------------
+
   const SECTORS = {
-    mineria: { label: "Minería", color: "--mineria" },
-    energia: { label: "Energía", color: "--energia" },
-    oilgas: { label: "Oil & Gas", color: "--oilgas" },
+    oilgas: { label: "Oil & Gas", color: "#FF7A1A" },
+    mineria: { label: "Minería", color: "#FFC21A" },
+    energia: { label: "Energía", color: "#2EE6A6" },
   };
-  const SIGNALS = {
-    rigi: "RIGI",
-    obra: "Obra o planta nueva",
-    expansion: "Expansión",
-    inversion: "Inversión anunciada",
-  };
+  const SIGNALS = { rigi: "RIGI", obra: "Obra o planta nueva", expansion: "Expansión", inversion: "Inversión anunciada" };
   const PERIODS = [
-    { days: 7, label: "7 días" },
-    { days: 30, label: "30 días" },
-    { days: 90, label: "90 días" },
-    { days: 365, label: "1 año" },
+    { days: 7, label: "Semana" },
+    { days: 30, label: "Mes" },
+    { days: 90, label: "3 meses" },
     { days: 0, label: "Todo" },
   ];
-  const LEVELS = [
-    { id: "country", label: "Países" },
-    { id: "prov", label: "Provincias" },
-    { id: "city", label: "Ciudades y polos" },
-  ];
   const COUNTRIES = { AR: "Argentina", CL: "Chile", BO: "Bolivia", PY: "Paraguay", UY: "Uruguay", BR: "Brasil" };
-  const HEAT_GRADIENT = { 0.15: "#FFE7A0", 0.4: "#F2B705", 0.65: "#E8830C", 1: "#C2341B" };
+  const COUNTRY_TONE = { AR: "#1E5AA8", CL: "#174C93", BO: "#2566B6", PY: "#1A54A0", UY: "#2A6EC0", BR: "#1B529C" };
+  const PROV_TONES = ["#1E5AA8", "#2363B3", "#1A519B", "#2A6CBE"];
+
+  // Niveles de detalle según el zoom
+  const PROV_Z = 4.3;
+  const CITY_Z = 6.2;
+  const LEVELS = [
+    { id: "country", label: "Países", zoom: 3.1, hint: "Acercá el mapa para ver provincias." },
+    { id: "prov", label: "Provincias", zoom: 5.1, hint: "Acercá más para ver ciudades y polos." },
+    { id: "city", label: "Ciudades", zoom: 7.0, hint: "Pasá el mouse por un punto o hacé clic para ver sus noticias." },
+  ];
+  const DOT_KM = { country: 120, prov: 40, city: 9 };
+
+  // Espesor del bloque y altura de los puntos (en metros) para cada zoom
+  const LAND_STOPS = [[2, 300000], [4, 110000], [6, 30000], [8, 7000], [11, 1200]];
+  const DOT_STOPS = [[2, 750000], [4, 270000], [6, 75000], [8, 17000], [11, 3000]];
+  const LAND = ["interpolate", ["exponential", 1.3], ["zoom"], ...LAND_STOPS.flat()];
+  const DOT_HEIGHT = ["interpolate", ["exponential", 1.3], ["zoom"],
+    ...LAND_STOPS.flatMap(([z, land], i) => [z, ["+", land, ["*", ["get", "h"], DOT_STOPS[i][1]]]])];
+
+  const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const isMobile = () => matchMedia("(max-width: 860px)").matches;
+
+  // ---------------------------------------------------------------------------
+  // Estado y utilidades
+  // ---------------------------------------------------------------------------
 
   const state = {
     items: [],
+    places: { countries: {}, provinces: {} },
     updated: null,
     sectors: new Set(Object.keys(SECTORS)),
-    signals: new Set(Object.keys(SIGNALS)),
     period: 90,
-    zone: null,      // { level, key, label }
     company: null,
-    zoneLevel: "prov",
-    tab: "zonas",
+    level: "country",
+    view: { type: "ranking", tab: "zonas" },   // o { type: "zone", level, key } / { type: "company", name }
+    groups: { country: [], prov: [], city: [] },
+    hasProvinces: false,
   };
 
   const $ = (id) => document.getElementById(id);
-  const css = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
   const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const fmtDate = (iso) => new Date(iso).toLocaleDateString("es-AR", { day: "2-digit", month: "2-digit", year: "numeric" });
   const fmtNum = (n) => n.toLocaleString("es-AR");
+  const plural = (n, one, many) => `${fmtNum(n)} ${n === 1 ? one : many}`;
+  const daysAgo = (iso) => (Date.now() - Date.parse(iso)) / 86400000;
 
-  // --- Claves de zona -------------------------------------------------------
-
-  function zoneKey(item, level) {
-    if (level === "country") return item.country;
-    if (level === "prov") return item.admin1 ? `${item.country}|${item.admin1}` : null;
-    return item.city ? `${item.country}|${item.admin1}|${item.city}` : null;
-  }
-  function zoneLabel(item, level) {
-    if (level === "country") return COUNTRIES[item.country] || item.country;
-    if (level === "prov") return item.admin1;
-    return item.city;
-  }
-  function placeText(item) {
-    const parts = [item.city, item.admin1, COUNTRIES[item.country]].filter(Boolean);
-    return [...new Set(parts)].join(", ");
+  async function getJSON(url) {
+    const res = await fetch(url, { cache: "no-cache" });
+    if (!res.ok) throw new Error(`${url}: HTTP ${res.status}`);
+    return res.json();
   }
 
-  // --- Filtros ----------------------------------------------------------------
-
-  function baseFilter(item, { ignoreZone = false, ignoreCompany = false } = {}) {
-    if (!item.sectors.some((s) => state.sectors.has(s))) return false;
-    if (!item.signals.some((s) => state.signals.has(s))) return false;
-    if (state.period) {
-      const cutoff = Date.now() - state.period * 86400000;
-      if (Date.parse(item.date) < cutoff) return false;
-    }
-    if (!ignoreZone && state.zone && zoneKey(item, state.zone.level) !== state.zone.key) return false;
-    if (!ignoreCompany && state.company && !item.companies.includes(state.company)) return false;
+  function passes(it) {
+    if (!it.sectors.some((s) => state.sectors.has(s))) return false;
+    if (state.period && daysAgo(it.date) > state.period) return false;
+    if (state.company && !it.companies.includes(state.company)) return false;
     return true;
   }
 
-  // --- Mapa -------------------------------------------------------------------
+  // ---------------------------------------------------------------------------
+  // Agrupación por nivel
+  // ---------------------------------------------------------------------------
 
-  let map, heat, markers, tiles;
-
-  function isDark() {
-    return css("color-scheme") === "dark";
+  function newGroup(key, level, label, where, lat, lon) {
+    return { key, level, label, where, lat, lon, items: [], sectors: {}, companies: {}, rigi: 0 };
+  }
+  function addTo(g, it) {
+    g.items.push(it);
+    it.sectors.forEach((s) => { g.sectors[s] = (g.sectors[s] || 0) + 1; });
+    it.companies.forEach((c) => { g.companies[c] = (g.companies[c] || 0) + 1; });
+    if (it.signals.includes("rigi")) g.rigi += 1;
   }
 
-  function initMap() {
-    map = L.map("map", { zoomControl: true, minZoom: 3, worldCopyJump: false, attributionControl: true });
-    map.fitBounds([[-55.5, -76], [4, -34]]);
-    setTiles();
-    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => { setTiles(); renderMap(); });
-    heat = L.heatLayer([], { radius: 30, blur: 24, maxZoom: 9, max: 1, minOpacity: 0.35, gradient: HEAT_GRADIENT }).addTo(map);
-    markers = L.layerGroup().addTo(map);
-  }
-
-  function setTiles() {
-    if (tiles) tiles.remove();
-    const style = isDark() ? "dark_all" : "light_all";
-    tiles = L.tileLayer(`https://{s}.basemaps.cartocdn.com/${style}/{z}/{x}/{y}{r}.png`, {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
-      subdomains: "abcd",
-      maxZoom: 12,
-    }).addTo(map);
-    tiles.bringToBack();
-  }
-
-  function renderMap() {
-    const pts = new Map();
+  function buildGroups() {
+    const country = new Map(), prov = new Map(), city = new Map();
+    const C = state.places.countries, P = state.places.provinces;
     for (const it of state.items) {
-      if (it.level === "country" || !baseFilter(it, { ignoreZone: true })) continue;
-      const k = `${it.lat},${it.lon}`;
-      if (!pts.has(k)) pts.set(k, { lat: it.lat, lon: it.lon, n: 0, item: it });
-      pts.get(k).n += 1;
-    }
-    const list = [...pts.values()];
-    const max = Math.max(1, ...list.map((p) => p.n));
-    // raíz cuadrada: un polo con 40 notas no debe tapar a todos los de 2-3
-    heat.setLatLngs(list.map((p) => [p.lat, p.lon, 0.25 + 0.75 * Math.sqrt(p.n / max)]));
+      if (!passes(it)) continue;
+      const cn = COUNTRIES[it.country] || it.country;
+      // país
+      if (!country.has(it.country)) {
+        const c = C[it.country] || { lat: it.lat, lon: it.lon };
+        country.set(it.country, newGroup(it.country, "country", cn, "", c.lat, c.lon));
+      }
+      addTo(country.get(it.country), it);
 
-    markers.clearLayers();
-    const ink = css("--ink");
-    const surface = css("--surface");
-    for (const p of list) {
-      const level = p.item.level === "city" ? "city" : "prov";
-      const key = zoneKey(p.item, level);
-      const selected = state.zone && state.zone.key === key;
-      const m = L.circleMarker([p.lat, p.lon], {
-        radius: 3 + Math.sqrt(p.n) * 2.2,
-        color: selected ? css("--signal") : ink,
-        weight: selected ? 3 : 1.5,
-        fillColor: surface,
-        fillOpacity: 0.85,
+      // provincia (las notas que solo nombran el país quedan en el centro del país)
+      const pk = it.admin1 ? `${it.country}|${it.admin1}` : `${it.country}|*`;
+      if (!prov.has(pk)) {
+        const p = it.admin1 ? (P[pk] || [it.lat, it.lon]) : [C[it.country]?.lat ?? it.lat, C[it.country]?.lon ?? it.lon];
+        prov.set(pk, newGroup(pk, "prov", it.admin1 || `${cn} (sin provincia precisa)`, it.admin1 ? cn : "", p[0], p[1]));
+      }
+      addTo(prov.get(pk), it);
+
+      // ciudad (las que no nombran ciudad quedan en el centro de su provincia)
+      const ck = it.city ? `${it.country}|${it.admin1}|${it.city}` : pk;
+      if (!city.has(ck)) {
+        const base = prov.get(pk);
+        city.set(ck, it.city
+          ? newGroup(ck, "city", it.city, `${it.admin1}, ${cn}`, it.lat, it.lon)
+          : newGroup(ck, "city", it.admin1 ? `${it.admin1} (sin ciudad precisa)` : base.label, it.admin1 ? cn : "", base.lat, base.lon));
+      }
+      addTo(city.get(ck), it);
+    }
+    const sort = (m) => [...m.values()].sort((a, b) => b.items.length - a.items.length);
+    state.groups = { country: sort(country), prov: sort(prov), city: sort(city) };
+  }
+
+  function topSector(g) {
+    return Object.keys(SECTORS).filter((s) => state.sectors.has(s)).sort((a, b) => (g.sectors[b] || 0) - (g.sectors[a] || 0))[0];
+  }
+  function topCompanies(g, n = 4) {
+    return Object.entries(g.companies).sort((a, b) => b[1] - a[1]).slice(0, n).map((e) => e[0]);
+  }
+
+  // ---------------------------------------------------------------------------
+  // Pantalla de inicio
+  // ---------------------------------------------------------------------------
+
+  const ready = loadData();
+
+  function placeBlips(points) {
+    // proyecta lat/lon de Sudamérica dentro del círculo del radar
+    const box = $("blips");
+    box.innerHTML = "";
+    points.slice(0, 60).forEach((p, i) => {
+      const x = ((p.lon + 82) / 50) * 100;
+      const y = ((14 - p.lat) / 72) * 100;
+      if (Math.hypot(x - 50, y - 50) > 46) return;
+      const b = document.createElement("span");
+      b.className = "blip";
+      b.style.left = `${x}%`;
+      b.style.top = `${y}%`;
+      b.style.setProperty("--c", SECTORS[topSector(p)]?.color || "#3FE0C5");
+      // aparece cuando el barrido pasa por su ángulo
+      const angle = (Math.atan2(x - 50, -(y - 50)) * 180 / Math.PI + 360) % 360;
+      b.style.animationDelay = `${(angle / 360) * 2.2 + Math.floor(i / 20) * 2.2}s`;
+      box.appendChild(b);
+    });
+  }
+
+  function countUp(el, to, ms) {
+    if (reducedMotion || to === 0) { el.textContent = fmtNum(to); return Promise.resolve(); }
+    return new Promise((done) => {
+      const t0 = performance.now();
+      const step = (t) => {
+        const k = Math.min(1, (t - t0) / ms);
+        el.textContent = fmtNum(Math.round(to * (1 - Math.pow(1 - k, 3))));
+        k < 1 ? requestAnimationFrame(step) : done();
+      };
+      requestAnimationFrame(step);
+    });
+  }
+  const wait = (ms) => new Promise((r) => setTimeout(r, reducedMotion ? Math.min(ms, 120) : ms));
+
+  async function logLine(text, value, ms = 650) {
+    const li = document.createElement("li");
+    li.innerHTML = `<span>${esc(text)}</span><b>0</b>`;
+    $("log").appendChild(li);
+    await countUp(li.querySelector("b"), value, ms);
+    li.classList.add("done");
+    await wait(220);
+  }
+
+  let started = false;
+  async function startRadar() {
+    if (started) return;
+    started = true;
+    $("start").hidden = true;
+    $("scope").classList.add("scanning");
+    const skip = document.createElement("button");
+    skip.type = "button";
+    skip.className = "skip";
+    skip.textContent = "Saltar animación";
+    skip.addEventListener("click", reveal);
+    $("log").after(skip);
+
+    await ready;
+    const all = state.items;
+    await logLine("Noticias de hoy", all.filter((i) => daysAgo(i.date) <= 1).length);
+    await logLine("Últimos 7 días", all.filter((i) => daysAgo(i.date) <= 7).length);
+    await logLine("Últimos 30 días", all.filter((i) => daysAgo(i.date) <= 30).length);
+    await logLine("Total analizado", all.length, 800);
+    const provs = new Set(all.filter((i) => i.admin1).map((i) => `${i.country}|${i.admin1}`)).size;
+    await logLine("Provincias con obras", provs);
+    await logLine("Empresas identificadas", new Set(all.flatMap((i) => i.companies)).size);
+    const fin = document.createElement("li");
+    fin.className = "final done";
+    fin.innerHTML = `<span>${all.length ? "Listo. Armando el mapa…" : "Todavía no hay noticias cargadas."}</span>`;
+    $("log").appendChild(fin);
+    await wait(900);
+    reveal();
+  }
+
+  let revealed = false;
+  function flyHome() {
+    map.resize();
+    map.flyTo({ center: [-60, -27], zoom: isMobile() ? 2.6 : 3.1, pitch: 52, bearing: -12, duration: reducedMotion ? 0 : 3200, essential: true });
+  }
+  function reveal() {
+    if (revealed) return;
+    revealed = true;
+    $("intro").classList.add("gone");
+    $("app").setAttribute("aria-hidden", "false");
+    if (map && map.loaded()) flyHome();
+    if (!state.items.length) {
+      showNotice("Todavía no hay noticias", "La recolección automática corre todos los días. Volvé a entrar más tarde.");
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // Mapa
+  // ---------------------------------------------------------------------------
+
+  let map = null;
+  let hovered = null;
+  const countryMarkers = [];
+
+  function circle(lon, lat, km, steps = 28) {
+    const coords = [];
+    const dLat = km / 110.57;
+    const dLon = km / (111.32 * Math.cos((lat * Math.PI) / 180));
+    for (let i = 0; i <= steps; i++) {
+      const a = (i / steps) * 2 * Math.PI;
+      coords.push([lon + dLon * Math.cos(a), lat + dLat * Math.sin(a)]);
+    }
+    return [coords];
+  }
+
+  function dotsGeoJSON(level) {
+    const groups = state.groups[level];
+    const max = Math.max(1, ...groups.map((g) => g.items.length));
+    return {
+      type: "FeatureCollection",
+      features: groups.map((g, id) => {
+        const k = Math.sqrt(g.items.length / max);
+        return {
+          type: "Feature",
+          id,
+          properties: { h: 0.12 + 0.88 * k, color: SECTORS[topSector(g)].color },
+          geometry: { type: "Polygon", coordinates: circle(g.lon, g.lat, DOT_KM[level] * (0.75 + 0.45 * k)) },
+        };
+      }),
+    };
+  }
+
+  function initMap(paises, provincias) {
+    try {
+      map = new maplibregl.Map({
+        container: "map",
+        style: {
+          version: 8,
+          sources: {},
+          layers: [{ id: "fondo", type: "background", paint: { "background-color": "#E9EFF6" } }],
+        },
+        center: [-62, -22],
+        zoom: 1.9,
+        pitch: 20,
+        bearing: 0,
+        minZoom: 1.6,
+        maxZoom: 11,
+        maxPitch: 70,
+        maxBounds: [[-140, -70], [-10, 40]],
+        attributionControl: false,
       });
-      m.bindTooltip(`${esc(placeText(p.item))}: ${p.n} ${p.n === 1 ? "noticia" : "noticias"}`, { className: "zone-label", direction: "top", offset: [0, -6] });
-      m.on("click", () => selectZone(level, key, zoneLabel(p.item, level)));
-      m.on("keypress", (e) => { if (e.originalEvent.key === "Enter") selectZone(level, key, zoneLabel(p.item, level)); });
-      markers.addLayer(m);
+    } catch (err) {
+      showNotice("Tu navegador no puede mostrar el mapa 3D", "Hace falta WebGL. Probá con Chrome, Edge o Firefox actualizados.");
+      console.error(err);
+      return;
+    }
+    map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), "bottom-right");
+    map.addControl(new maplibregl.AttributionControl({ compact: true, customAttribution: "Mapa base: Natural Earth" }), "bottom-right");
+
+    map.on("load", () => {
+      map.setLight({ anchor: "viewport", color: "#ffffff", intensity: 0.5, position: [1.4, 200, 35] });
+
+      if (paises) {
+        map.addSource("paises", { type: "geojson", data: paises });
+        map.addLayer({
+          id: "paises-otros", type: "fill-extrusion", source: "paises",
+          filter: ["!", ["get", "focus"]],
+          paint: { "fill-extrusion-color": "#9DB2CB", "fill-extrusion-height": LAND, "fill-extrusion-base": 0, "fill-extrusion-vertical-gradient": true },
+        });
+        map.addLayer({
+          id: "paises-foco", type: "fill-extrusion", source: "paises",
+          filter: ["get", "focus"],
+          ...(provincias ? { maxzoom: PROV_Z } : {}),
+          paint: {
+            "fill-extrusion-color": ["match", ["get", "iso"], ...Object.entries(COUNTRY_TONE).flat(), "#1E5AA8"],
+            "fill-extrusion-height": LAND, "fill-extrusion-base": 0, "fill-extrusion-vertical-gradient": true,
+          },
+        });
+      }
+      if (provincias) {
+        map.addSource("provincias", { type: "geojson", data: provincias });
+        map.addLayer({
+          id: "provincias", type: "fill-extrusion", source: "provincias", minzoom: PROV_Z,
+          paint: {
+            "fill-extrusion-color": ["match", ["get", "tone"], 0, PROV_TONES[0], 1, PROV_TONES[1], 2, PROV_TONES[2], PROV_TONES[3]],
+            "fill-extrusion-height": LAND, "fill-extrusion-base": 0, "fill-extrusion-vertical-gradient": true,
+          },
+        });
+      }
+
+      const ranges = { country: [0, PROV_Z], prov: [PROV_Z, CITY_Z], city: [CITY_Z, 24] };
+      for (const level of ["country", "prov", "city"]) {
+        map.addSource(`dots-${level}`, { type: "geojson", data: dotsGeoJSON(level) });
+        map.addLayer({
+          id: `dots-${level}`, type: "fill-extrusion", source: `dots-${level}`,
+          minzoom: ranges[level][0], maxzoom: ranges[level][1],
+          paint: {
+            "fill-extrusion-color": ["case", ["boolean", ["feature-state", "hover"], false], "#FFFFFF", ["get", "color"]],
+            "fill-extrusion-base": LAND,
+            "fill-extrusion-height": DOT_HEIGHT,
+            "fill-extrusion-vertical-gradient": true,
+          },
+        });
+        map.on("mousemove", `dots-${level}`, (e) => onHover(level, e));
+        map.on("mouseleave", `dots-${level}`, clearHover);
+        map.on("click", `dots-${level}`, (e) => {
+          const g = state.groups[level][e.features[0].id];
+          if (g) openZone(level, g.key, true);
+        });
+      }
+
+      // nombres de los 6 países en la vista lejana
+      Object.entries(COUNTRIES).forEach(([iso, name]) => {
+        const c = state.places.countries[iso];
+        if (!c) return;
+        const el = document.createElement("div");
+        el.className = "country-label";
+        el.textContent = name;
+        countryMarkers.push(new maplibregl.Marker({ element: el, anchor: "top", offset: [0, 14] }).setLngLat([c.lon, c.lat]).addTo(map));
+      });
+
+      map.on("zoom", onZoom);
+      onZoom();
+      if (revealed) flyHome();
+    });
+  }
+
+  function refreshDots() {
+    if (!map || !map.getSource("dots-country")) return;
+    clearHover();
+    for (const level of ["country", "prov", "city"]) map.getSource(`dots-${level}`).setData(dotsGeoJSON(level));
+  }
+
+  function onZoom() {
+    const z = map.getZoom();
+    const level = z < PROV_Z ? "country" : z < CITY_Z ? "prov" : "city";
+    countryMarkers.forEach((m) => { m.getElement().style.display = level === "country" ? "" : "none"; });
+    if (level !== state.level) {
+      state.level = level;
+      renderLevels();
+      if (state.view.type === "ranking") renderDrawer();
     }
   }
 
-  function fitToZone() {
-    if (!state.zone) return;
-    const pts = state.items
-      .filter((it) => zoneKey(it, state.zone.level) === state.zone.key && it.level !== "country")
-      .map((it) => [it.lat, it.lon]);
-    if (!pts.length) return;
-    const maxZoom = state.zone.level === "city" ? 8 : state.zone.level === "prov" ? 6 : 5;
-    map.flyToBounds(L.latLngBounds(pts).pad(0.4), { maxZoom, duration: matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 0.8 });
+  // --- Tooltip -----------------------------------------------------------------
+
+  function onHover(level, e) {
+    const f = e.features[0];
+    if (!f) return;
+    map.getCanvas().style.cursor = "pointer";
+    const src = `dots-${level}`;
+    if (!hovered || hovered.src !== src || hovered.id !== f.id) {
+      clearHover(false);
+      hovered = { src, id: f.id };
+      map.setFeatureState({ source: src, id: f.id }, { hover: true });
+      const g = state.groups[level][f.id];
+      if (g) $("tip").innerHTML = tipHTML(g);
+    }
+    if (isMobile()) return;
+    const tip = $("tip");
+    tip.hidden = false;
+    const { x, y } = e.point;
+    const w = tip.offsetWidth, h = tip.offsetHeight;
+    const W = map.getContainer().clientWidth;
+    tip.style.left = `${Math.min(x + 16, W - w - 12)}px`;
+    tip.style.top = `${Math.max(12, y - h - 14)}px`;
   }
 
-  // --- Controles ---------------------------------------------------------------
-
-  function chip({ label, pressed, color, onClick }) {
-    const b = document.createElement("button");
-    b.type = "button";
-    b.className = "chip";
-    b.setAttribute("aria-pressed", String(pressed));
-    if (color) b.style.setProperty("--c", `var(${color})`);
-    b.innerHTML = (color ? '<span class="dot"></span>' : "") + esc(label);
-    b.addEventListener("click", onClick);
-    return b;
+  function clearHover(hideTip = true) {
+    if (hovered && map.getSource(hovered.src)) map.setFeatureState({ source: hovered.src, id: hovered.id }, { hover: false });
+    hovered = null;
+    if (hideTip !== false) {
+      $("tip").hidden = true;
+      if (map) map.getCanvas().style.cursor = "";
+    }
   }
 
-  function toggleIn(set, key) {
-    // Si estaban todos activos, el primer clic deja solo el elegido
-    const all = set.size === (set === state.sectors ? Object.keys(SECTORS).length : Object.keys(SIGNALS).length);
-    if (all) { set.clear(); set.add(key); }
-    else if (set.has(key)) { set.delete(key); }
-    else { set.add(key); }
-    if (set.size === 0) Object.keys(set === state.sectors ? SECTORS : SIGNALS).forEach((k) => set.add(k));
+  function sectorRows(g) {
+    return Object.keys(SECTORS).filter((s) => g.sectors[s] && state.sectors.has(s))
+      .sort((a, b) => g.sectors[b] - g.sectors[a])
+      .map((s) => `<div style="--c:${SECTORS[s].color}"><i></i>${SECTORS[s].label}<b>${g.sectors[s]}</b></div>`).join("");
   }
+
+  function tipHTML(g) {
+    const cos = topCompanies(g);
+    const more = Object.keys(g.companies).length - cos.length;
+    return `<h3>${esc(g.label)}</h3>
+      ${g.where ? `<div class="where">${esc(g.where)}</div>` : ""}
+      <div class="sec">${sectorRows(g)}</div>
+      <div class="co">${cos.length ? `Empresas: <strong>${esc(cos.join(", "))}</strong>${more > 0 ? ` y ${more} más` : ""}` : "Empresas: no identificadas en las notas"}</div>
+      ${g.rigi ? `<div class="co">${plural(g.rigi, "noticia con RIGI", "noticias con RIGI")}</div>` : ""}
+      <div class="cta">${plural(g.items.length, "noticia", "noticias")}. Clic para verlas.</div>`;
+  }
+
+  // ---------------------------------------------------------------------------
+  // Controles
+  // ---------------------------------------------------------------------------
 
   function renderFilters() {
-    const fs = $("f-sector");
-    fs.replaceChildren(...Object.entries(SECTORS).map(([k, v]) =>
-      chip({ label: v.label, color: v.color, pressed: state.sectors.has(k) && state.sectors.size < 3, onClick: () => { toggleIn(state.sectors, k); update(); } })));
-
-    const fsig = $("f-signal");
-    fsig.replaceChildren(...Object.entries(SIGNALS).map(([k, v]) =>
-      chip({ label: v, pressed: state.signals.has(k) && state.signals.size < 4, onClick: () => { toggleIn(state.signals, k); update(); } })));
-
-    const fp = $("f-period");
-    fp.replaceChildren(...PERIODS.map((p) => {
+    $("f-sector").replaceChildren(...Object.entries(SECTORS).map(([k, v]) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "chip";
+      b.style.setProperty("--c", v.color);
+      b.setAttribute("aria-pressed", String(state.sectors.has(k)));
+      b.innerHTML = `<i></i>${esc(v.label)}`;
+      b.addEventListener("click", () => {
+        if (state.sectors.has(k) && state.sectors.size === 1) return; // siempre al menos uno
+        state.sectors.has(k) ? state.sectors.delete(k) : state.sectors.add(k);
+        update();
+      });
+      return b;
+    }));
+    $("f-period").replaceChildren(...PERIODS.map((p) => {
       const b = document.createElement("button");
       b.type = "button";
       b.textContent = p.label;
@@ -188,92 +454,111 @@
       b.addEventListener("click", () => { state.period = p.days; update(); });
       return b;
     }));
+    $("legend").innerHTML = Object.values(SECTORS).map((s) => `<li style="--c:${s.color}"><i></i>${s.label}</li>`).join("");
+  }
 
-    const zl = $("zone-level");
-    zl.replaceChildren(...LEVELS.map((l) => {
+  function renderLevels() {
+    $("levels").replaceChildren(...LEVELS.map((l) => {
       const b = document.createElement("button");
       b.type = "button";
       b.textContent = l.label;
-      b.setAttribute("aria-pressed", String(state.zoneLevel === l.id));
-      b.addEventListener("click", () => { state.zoneLevel = l.id; renderZones(); renderFilters(); });
+      b.setAttribute("aria-pressed", String(state.level === l.id));
+      b.addEventListener("click", () => map && map.easeTo({ zoom: l.zoom, pitch: 52, duration: reducedMotion ? 0 : 1200 }));
       return b;
     }));
-
-    const act = $("active-filters");
-    const chips = [];
-    if (state.zone) chips.push(chip({ label: `Zona: ${state.zone.label}`, pressed: false, onClick: () => { state.zone = null; update(); } }));
-    if (state.company) chips.push(chip({ label: `Empresa: ${state.company}`, pressed: false, onClick: () => { state.company = null; update(); } }));
-    chips.forEach((c) => c.setAttribute("aria-label", `${c.textContent}. Quitar filtro`));
-    act.replaceChildren(...chips);
+    $("level-hint").textContent = LEVELS.find((l) => l.id === state.level).hint;
   }
 
-  function selectZone(level, key, label) {
-    if (state.zone && state.zone.key === key) {
-      state.zone = null;
+  function renderStatus() {
+    const n = state.items.filter(passes).length;
+    $("updated").textContent = `${plural(n, "noticia", "noticias")}${state.updated ? `, actualizado el ${fmtDate(state.updated)}` : ""}`;
+  }
+
+  // ---------------------------------------------------------------------------
+  // Panel lateral
+  // ---------------------------------------------------------------------------
+
+  function splitBar(sectors) {
+    const total = Object.values(sectors).reduce((a, b) => a + b, 0) || 1;
+    return `<span class="sector-split">${Object.keys(SECTORS).filter((s) => sectors[s])
+      .map((s) => `<i style="--c:${SECTORS[s].color};width:${(100 * sectors[s] / total).toFixed(1)}%"></i>`).join("")}</span>`;
+  }
+
+  function newsList(items) {
+    if (!items.length) return `<p class="note">No hay noticias con estos filtros.</p>`;
+    const sorted = [...items].sort((a, b) => (a.date < b.date ? 1 : -1));
+    return `<ul class="news">${sorted.map((it) => `<li>
+      <div class="meta"><span>${fmtDate(it.date)}</span><span>${esc(it.source)}</span><span>${esc([it.city, it.admin1, COUNTRIES[it.country]].filter(Boolean).join(", "))}</span></div>
+      <a href="${esc(it.url)}" target="_blank" rel="noopener">${esc(it.title)}</a>
+      <div class="tags">
+        ${it.sectors.map((s) => `<span class="tag s" style="--c:${SECTORS[s].color}">${SECTORS[s].label}</span>`).join("")}
+        ${it.signals.map((s) => `<span class="tag ${s === "rigi" ? "rigi" : ""}">${SIGNALS[s]}</span>`).join("")}
+        ${it.companies.map((c) => `<span class="tag">${esc(c)}</span>`).join("")}
+      </div></li>`).join("")}</ul>`;
+  }
+
+  function periodText() {
+    return state.period ? `últimos ${state.period} días` : "todo el historial";
+  }
+
+  function renderDrawer() {
+    const head = $("drawer-head"), body = $("drawer-body");
+    const v = state.view;
+
+    if (v.type === "zone") {
+      const g = state.groups[v.level].find((x) => x.key === v.key);
+      head.innerHTML = `<button type="button" class="back" id="back">Volver al ranking</button>
+        <h2>${esc(g ? g.label : "Sin noticias")}</h2>
+        <p>${g ? `${esc(g.where ? g.where + ". " : "")}${plural(g.items.length, "noticia", "noticias")}, ${periodText()}` : "No quedan noticias con estos filtros."}</p>
+        ${g ? splitBar(g.sectors) : ""}`;
+      body.innerHTML = g ? newsList(g.items) : "";
+    } else if (v.type === "company") {
+      const items = state.items.filter((it) => passes(it));
+      const sectors = {};
+      items.forEach((it) => it.sectors.forEach((s) => { sectors[s] = (sectors[s] || 0) + 1; }));
+      head.innerHTML = `<button type="button" class="back" id="back">Volver al ranking</button>
+        <h2>${esc(v.name)}</h2>
+        <p>${plural(items.length, "noticia", "noticias")}, ${periodText()}. El mapa muestra solo sus proyectos.</p>
+        ${splitBar(sectors)}`;
+      body.innerHTML = newsList(items);
     } else {
-      state.zone = { level, key, label };
-      setTab("noticias");
+      const lvl = LEVELS.find((l) => l.id === state.level);
+      head.innerHTML = `<h2>Dónde hay más obras</h2>
+        <p>${esc(periodText().replace(/^./, (c) => c.toUpperCase()))}. Hacé clic en una zona para ver sus noticias.</p>
+        <div class="tabs" role="tablist">
+          <button type="button" role="tab" data-tab="zonas" aria-selected="${v.tab === "zonas"}">${esc(lvl.label)}</button>
+          <button type="button" role="tab" data-tab="empresas" aria-selected="${v.tab === "empresas"}">Empresas</button>
+        </div>`;
+      head.querySelectorAll("[data-tab]").forEach((b) => b.addEventListener("click", () => { state.view.tab = b.dataset.tab; renderDrawer(); }));
+      body.innerHTML = v.tab === "zonas" ? zoneRanking() : companyRanking();
+      body.querySelectorAll("[data-zone]").forEach((b) => b.addEventListener("click", () => openZone(state.level, b.dataset.zone, true)));
+      body.querySelectorAll("[data-company]").forEach((b) => b.addEventListener("click", () => openCompany(b.dataset.company)));
     }
-    update();
-    fitToZone();
+    const back = $("back");
+    if (back) back.addEventListener("click", closeDetail);
+    body.scrollTop = 0;
   }
 
-  function selectCompany(name) {
-    state.company = state.company === name ? null : name;
-    if (state.company) setTab("noticias");
-    update();
+  function zoneRanking() {
+    const groups = state.groups[state.level].slice(0, 40);
+    if (!groups.length) return `<p class="note">No hay zonas con noticias para estos filtros. Probá con un período más largo.</p>`;
+    return `<ol class="rank">${groups.map((g) => {
+      const cos = topCompanies(g, 3);
+      const sub = [g.where, cos.join(", ")].filter(Boolean).join(". ");
+      return `<li><button type="button" data-zone="${esc(g.key)}">
+        <span class="name">${esc(g.label)}</span><span class="n">${fmtNum(g.items.length)}</span>
+        <span class="sub">${esc(sub || " ")}</span>${splitBar(g.sectors)}</button></li>`;
+    }).join("")}</ol>`;
   }
 
-  // --- Rankings -------------------------------------------------------------
-
-  function sectorBar(counts, total) {
-    return Object.keys(SECTORS)
-      .filter((s) => counts[s])
-      .map((s) => `<i style="width:${(100 * counts[s] / total).toFixed(1)}%;background:var(${SECTORS[s].color})" title="${SECTORS[s].label}: ${counts[s]}"></i>`)
-      .join("");
-  }
-
-  function emptyNote(el, text) {
-    el.innerHTML = `<li class="note">${esc(text)}</li>`;
-  }
-
-  function renderZones() {
-    const level = state.zoneLevel;
-    const groups = new Map();
+  function companyRanking() {
+    const agg = new Map();
     for (const it of state.items) {
-      if (!baseFilter(it, { ignoreZone: true })) continue;
-      const key = zoneKey(it, level);
-      if (!key) continue;
-      if (!groups.has(key)) groups.set(key, { key, label: zoneLabel(it, level), country: it.country, admin1: it.admin1, n: 0, sectors: {}, companies: {} });
-      const g = groups.get(key);
-      g.n += 1;
-      it.sectors.forEach((s) => { g.sectors[s] = (g.sectors[s] || 0) + 1; });
-      it.companies.forEach((c) => { g.companies[c] = (g.companies[c] || 0) + 1; });
-    }
-    const rows = [...groups.values()].sort((a, b) => b.n - a.n).slice(0, 40);
-    const ol = $("rank-zonas");
-    if (!rows.length) return emptyNote(ol, "No hay zonas con noticias para estos filtros. Probá con un período más largo.");
-    ol.innerHTML = rows.map((g) => {
-      const top = Object.entries(g.companies).sort((a, b) => b[1] - a[1]).slice(0, 3).map((e) => e[0]);
-      const where = level === "country" ? "" : level === "prov" ? COUNTRIES[g.country] : `${g.admin1}, ${COUNTRIES[g.country]}`;
-      const sub = [where, top.length ? top.join(", ") : ""].filter(Boolean).join(". ");
-      const totalS = Object.values(g.sectors).reduce((a, b) => a + b, 0);
-      const pressed = state.zone && state.zone.key === g.key;
-      return `<li><button type="button" data-level="${level}" data-key="${esc(g.key)}" data-label="${esc(g.label)}" aria-pressed="${pressed}">
-        <span class="name">${esc(g.label)}</span><span class="n">${fmtNum(g.n)}</span>
-        <span class="sub">${esc(sub)}</span>
-        <span class="bar">${sectorBar(g.sectors, totalS)}</span></button></li>`;
-    }).join("");
-    ol.querySelectorAll("button").forEach((b) => b.addEventListener("click", () => selectZone(b.dataset.level, b.dataset.key, b.dataset.label)));
-  }
-
-  function renderCompanies() {
-    const groups = new Map();
-    for (const it of state.items) {
-      if (!baseFilter(it, { ignoreCompany: true })) continue;
+      if (!it.sectors.some((s) => state.sectors.has(s))) continue;
+      if (state.period && daysAgo(it.date) > state.period) continue;
       for (const c of it.companies) {
-        if (!groups.has(c)) groups.set(c, { name: c, n: 0, sectors: {}, places: {}, rigi: 0 });
-        const g = groups.get(c);
+        if (!agg.has(c)) agg.set(c, { name: c, n: 0, sectors: {}, places: {}, rigi: 0 });
+        const g = agg.get(c);
         g.n += 1;
         if (it.signals.includes("rigi")) g.rigi += 1;
         it.sectors.forEach((s) => { g.sectors[s] = (g.sectors[s] || 0) + 1; });
@@ -281,103 +566,86 @@
         g.places[p] = (g.places[p] || 0) + 1;
       }
     }
-    const rows = [...groups.values()].sort((a, b) => b.n - a.n).slice(0, 50);
-    const ol = $("rank-empresas");
-    if (!rows.length) return emptyNote(ol, "No se identificaron empresas para estos filtros.");
-    ol.innerHTML = rows.map((g) => {
+    const rows = [...agg.values()].sort((a, b) => b.n - a.n).slice(0, 50);
+    if (!rows.length) return `<p class="note">No se identificaron empresas para estos filtros.</p>`;
+    return `<ol class="rank">${rows.map((g) => {
       const places = Object.entries(g.places).sort((a, b) => b[1] - a[1]).slice(0, 3).map((e) => e[0]).join(", ");
       const sub = (g.rigi ? `${g.rigi} con RIGI. ` : "") + places;
-      const totalS = Object.values(g.sectors).reduce((a, b) => a + b, 0);
-      return `<li><button type="button" data-name="${esc(g.name)}" aria-pressed="${state.company === g.name}">
+      return `<li><button type="button" data-company="${esc(g.name)}">
         <span class="name">${esc(g.name)}</span><span class="n">${fmtNum(g.n)}</span>
-        <span class="sub">${esc(sub)}</span>
-        <span class="bar">${sectorBar(g.sectors, totalS)}</span></button></li>`;
-    }).join("");
-    ol.querySelectorAll("button").forEach((b) => b.addEventListener("click", () => selectCompany(b.dataset.name)));
+        <span class="sub">${esc(sub)}</span>${splitBar(g.sectors)}</button></li>`;
+    }).join("")}</ol>`;
   }
 
-  function renderNews() {
-    const list = state.items.filter((it) => baseFilter(it)).slice(0, 300);
-    const total = state.items.filter((it) => baseFilter(it)).length;
-    $("news-count").textContent = total ? `(${fmtNum(total)})` : "";
-    const ul = $("news-list");
-    if (!list.length) return emptyNote(ul, "No hay noticias con estos filtros. Probá con un período más largo o quitá el filtro de zona.");
-    ul.innerHTML = list.map((it) => {
-      const sectors = it.sectors.map((s) => `<span class="tag sector" style="--c:var(${SECTORS[s].color})">${SECTORS[s].label}</span>`).join("");
-      const signals = it.signals.map((s) => `<span class="tag ${s === "rigi" ? "rigi" : ""}">${SIGNALS[s]}</span>`).join("");
-      const companies = it.companies.map((c) => `<button type="button" class="tag" data-company="${esc(c)}">${esc(c)}</button>`).join("");
-      return `<li>
-        <div class="meta"><span>${fmtDate(it.date)}</span><span>${esc(it.source)}</span><span>${esc(placeText(it))}</span></div>
-        <a class="title" href="${esc(it.url)}" target="_blank" rel="noopener">${esc(it.title)}</a>
-        <div class="tags">${sectors}${signals}${companies}</div>
-      </li>`;
-    }).join("") + (total > list.length ? `<li class="note">Se muestran las ${list.length} más recientes de ${fmtNum(total)}. Usá los filtros para acotar.</li>` : "");
-    ul.querySelectorAll("button[data-company]").forEach((b) => b.addEventListener("click", () => selectCompany(b.dataset.company)));
-  }
-
-  function renderStatus() {
-    const n = state.items.filter((it) => baseFilter(it)).length;
-    const upd = state.updated ? `Actualizado el ${fmtDate(state.updated)}` : "";
-    $("status").innerHTML = `<strong>${fmtNum(n)}</strong>${n === 1 ? "noticia" : "noticias"} con los filtros actuales<br>${esc(upd)}`;
-  }
-
-  // --- Pestañas ---------------------------------------------------------------
-
-  function setTab(name) {
-    state.tab = name;
-    for (const t of ["zonas", "empresas", "noticias"]) {
-      $(`tab-${t}`).setAttribute("aria-selected", String(t === name));
-      $(`pane-${t}`).hidden = t !== name;
+  function openZone(level, key, fly) {
+    state.view = { type: "zone", level, key };
+    renderDrawer();
+    const g = state.groups[level].find((x) => x.key === key);
+    if (fly && g && map) {
+      const next = level === "country" ? 4.9 : level === "prov" ? 6.9 : Math.max(map.getZoom(), 7.2);
+      map.flyTo({ center: [g.lon, g.lat], zoom: next, pitch: 52, duration: reducedMotion ? 0 : 1600, essential: true });
     }
   }
 
-  function initTabs() {
-    const order = ["zonas", "empresas", "noticias"];
-    order.forEach((t) => $(`tab-${t}`).addEventListener("click", () => setTab(t)));
-    document.querySelector(".tabs").addEventListener("keydown", (e) => {
-      if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
-      const i = order.indexOf(state.tab) + (e.key === "ArrowRight" ? 1 : -1);
-      const next = order[(i + order.length) % order.length];
-      setTab(next);
-      $(`tab-${next}`).focus();
-    });
-  }
-
-  // --- Ciclo -----------------------------------------------------------------
-
-  function update() {
-    renderFilters();
-    renderMap();
-    renderZones();
-    renderCompanies();
-    renderNews();
-    renderStatus();
-  }
-
-  function showEmpty(title, text) {
-    const el = $("empty");
-    el.innerHTML = `<div><h2>${esc(title)}</h2><p>${esc(text)}</p></div>`;
-    el.hidden = false;
-  }
-
-  async function start() {
-    initMap();
-    initTabs();
-    try {
-      const res = await fetch("data/news.json", { cache: "no-cache" });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const data = await res.json();
-      state.items = data.items || [];
-      state.updated = data.updated;
-    } catch (err) {
-      showEmpty("No se pudieron cargar las noticias", "El archivo data/news.json no respondió. Recargá la página en unos minutos.");
-      console.error(err);
-    }
-    if (!state.items.length && $("empty").hidden) {
-      showEmpty("Todavía no hay noticias cargadas", "La recolección automática corre todos los días. Para la primera carga, en el repositorio de GitHub abrí Actions, elegí “Actualizar noticias” y tocá Run workflow.");
-    }
+  function openCompany(name) {
+    state.company = name;
+    state.view = { type: "company", name };
     update();
   }
 
-  start();
+  function closeDetail() {
+    const wasCompany = state.view.type === "company";
+    state.view = { type: "ranking", tab: wasCompany ? "empresas" : "zonas" };
+    if (wasCompany) { state.company = null; update(); } else renderDrawer();
+  }
+
+  function showNotice(title, text) {
+    const n = $("notice");
+    n.innerHTML = `<h2>${esc(title)}</h2><p>${esc(text)}</p>`;
+    n.hidden = false;
+  }
+
+  // ---------------------------------------------------------------------------
+  // Ciclo
+  // ---------------------------------------------------------------------------
+
+  function update() {
+    buildGroups();
+    renderFilters();
+    renderLevels();
+    renderStatus();
+    renderDrawer();
+    refreshDots();
+  }
+
+  async function loadData() {
+    const [news, places, paises, provincias] = await Promise.allSettled([
+      getJSON("data/news.json"),
+      getJSON("data/lugares.json"),
+      getJSON("data/paises.geojson"),
+      getJSON("data/provincias.geojson"),
+    ]);
+    if (news.status === "fulfilled") {
+      state.items = news.value.items || [];
+      state.updated = news.value.updated;
+    }
+    if (places.status === "fulfilled") state.places = places.value;
+    state.hasProvinces = provincias.status === "fulfilled";
+    buildGroups();
+    renderFilters();
+    renderLevels();
+    renderStatus();
+    renderDrawer();
+    initMap(paises.status === "fulfilled" ? paises.value : null, state.hasProvinces ? provincias.value : null);
+    placeBlips(state.groups.city);
+    if (paises.status !== "fulfilled") {
+      showNotice("El mapa base todavía se está generando", "Se crea en la próxima actualización automática. Mientras tanto podés ver el ranking y las noticias en el panel.");
+    }
+    if (news.status !== "fulfilled") console.error(news.reason);
+  }
+
+  $("start").addEventListener("click", startRadar);
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && state.view.type !== "ranking") closeDetail();
+  });
 })();
