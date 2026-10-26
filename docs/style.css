@@ -296,6 +296,9 @@ a { color: inherit; }
 .tip .sec b { margin-left: auto; }
 .tip .co { color: #D6E3F1; }
 .tip .co strong { color: #fff; }
+.tip .status { display: flex; flex-wrap: wrap; gap: 4px 12px; margin-top: 6px; font-weight: 600; }
+.emo { font-weight: 400; white-space: nowrap; }
+.legend li.sep { font-weight: 500; }
 .tip .cta { margin-top: 8px; color: var(--scan); font-weight: 600; font-size: 12.5px; }
 
 /* Panel lateral */

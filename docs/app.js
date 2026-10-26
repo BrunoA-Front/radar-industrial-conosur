@@ -6,10 +6,17 @@
   // ---------------------------------------------------------------------------
 
   const SECTORS = {
-    oilgas: { label: "Oil & Gas", color: "#FF7A1A" },
-    mineria: { label: "Minería", color: "#FFC21A" },
-    energia: { label: "Energía", color: "#2EE6A6" },
+    oilgas: { label: "Oil & Gas", color: "#FF7A1A", emoji: "🛢️" },
+    mineria: { label: "Minería", color: "#FFC21A", emoji: "⛏️" },
+    energia: { label: "Energía", color: "#2EE6A6", emoji: "⚡" },
   };
+  // Lectura rápida: rubro + si tiene RIGI (💰✅) o es solo noticia (📰)
+  const RIGI_EMOJI = "💰✅";
+  const NEWS_EMOJI = "📰";
+  const sectorEmojis = (sectors) => Object.keys(SECTORS)
+    .filter((s) => (Array.isArray(sectors) ? sectors.includes(s) : sectors[s]))
+    .map((s) => SECTORS[s].emoji).join(" ");
+  const statusEmoji = (it) => (it.signals.includes("rigi") ? RIGI_EMOJI : NEWS_EMOJI);
   const SIGNALS = { rigi: "RIGI", obra: "Obra o planta nueva", expansion: "Expansión", inversion: "Inversión anunciada" };
   const PERIODS = [
     { days: 7, label: "Semana" },
@@ -415,17 +422,17 @@
   function sectorRows(g) {
     return Object.keys(SECTORS).filter((s) => g.sectors[s] && state.sectors.has(s))
       .sort((a, b) => g.sectors[b] - g.sectors[a])
-      .map((s) => `<div style="--c:${SECTORS[s].color}"><i></i>${SECTORS[s].label}<b>${g.sectors[s]}</b></div>`).join("");
+      .map((s) => `<div style="--c:${SECTORS[s].color}"><i></i>${SECTORS[s].emoji} ${SECTORS[s].label}<b>${g.sectors[s]}</b></div>`).join("");
   }
 
   function tipHTML(g) {
     const cos = topCompanies(g);
     const more = Object.keys(g.companies).length - cos.length;
-    return `<h3>${esc(g.label)}</h3>
+    return `<h3>${sectorEmojis(g.sectors)} ${esc(g.label)}</h3>
       ${g.where ? `<div class="where">${esc(g.where)}</div>` : ""}
       <div class="sec">${sectorRows(g)}</div>
       <div class="co">${cos.length ? `Empresas: <strong>${esc(cos.join(", "))}</strong>${more > 0 ? ` y ${more} más` : ""}` : "Empresas: no identificadas en las notas"}</div>
-      ${g.rigi ? `<div class="co">${plural(g.rigi, "noticia con RIGI", "noticias con RIGI")}</div>` : ""}
+      <div class="status">${g.rigi ? `<span>${RIGI_EMOJI} ${plural(g.rigi, "con RIGI", "con RIGI")}</span>` : ""}${g.items.length - g.rigi ? `<span>${NEWS_EMOJI} ${plural(g.items.length - g.rigi, "solo noticia", "solo noticias")}</span>` : ""}</div>
       <div class="cta">${plural(g.items.length, "noticia", "noticias")}. Clic para verlas.</div>`;
   }
 
@@ -440,7 +447,7 @@
       b.className = "chip";
       b.style.setProperty("--c", v.color);
       b.setAttribute("aria-pressed", String(state.sectors.has(k)));
-      b.innerHTML = `<i></i>${esc(v.label)}`;
+      b.innerHTML = `<i></i>${v.emoji} ${esc(v.label)}`;
       b.addEventListener("click", () => {
         if (state.sectors.has(k) && state.sectors.size === 1) return; // siempre al menos uno
         state.sectors.has(k) ? state.sectors.delete(k) : state.sectors.add(k);
@@ -456,7 +463,8 @@
       b.addEventListener("click", () => { state.period = p.days; update(); });
       return b;
     }));
-    $("legend").innerHTML = Object.values(SECTORS).map((s) => `<li style="--c:${s.color}"><i></i>${s.label}</li>`).join("");
+    $("legend").innerHTML = Object.values(SECTORS).map((s) => `<li style="--c:${s.color}"><i></i>${s.emoji} ${s.label}</li>`).join("")
+      + `<li class="sep">${RIGI_EMOJI} Con RIGI</li><li class="sep">${NEWS_EMOJI} Solo noticia</li>`;
   }
 
   function renderLevels() {
@@ -501,10 +509,10 @@
     const sorted = [...items].sort((a, b) => (a.date < b.date ? 1 : -1));
     return `<ul class="news">${sorted.map((it) => `<li>
       <div class="meta"><span>${fmtDate(it.date)}</span><span>${esc(it.source)}</span><span>${esc([it.city, it.admin1, COUNTRIES[it.country]].filter(Boolean).join(", "))}</span></div>
-      <a href="${esc(it.url)}" target="_blank" rel="noopener">${esc(it.title)}</a>
+      <a href="${esc(it.url)}" target="_blank" rel="noopener"><span class="emo">${sectorEmojis(it.sectors)} ${statusEmoji(it)}</span> ${esc(it.title)}</a>
       <div class="tags">
-        ${it.sectors.map((s) => `<span class="tag s" style="--c:${SECTORS[s].color}">${SECTORS[s].label}</span>`).join("")}
-        ${it.signals.map((s) => `<span class="tag ${s === "rigi" ? "rigi" : ""}">${SIGNALS[s]}</span>`).join("")}
+        ${it.sectors.map((s) => `<span class="tag s" style="--c:${SECTORS[s].color}">${SECTORS[s].emoji} ${SECTORS[s].label}</span>`).join("")}
+        ${it.signals.map((s) => `<span class="tag ${s === "rigi" ? "rigi" : ""}">${s === "rigi" ? RIGI_EMOJI + " " : ""}${SIGNALS[s]}</span>`).join("")}
         ${it.companies.map((c) => `<span class="tag">${esc(c)}</span>`).join("")}
       </div></li>`).join("")}</ul>`;
   }
@@ -558,7 +566,7 @@
       const cos = topCompanies(g, 3);
       const sub = [g.where, cos.join(", ")].filter(Boolean).join(". ");
       return `<li><button type="button" data-zone="${esc(g.key)}">
-        <span class="name">${esc(g.label)}</span><span class="n">${fmtNum(g.items.length)}</span>
+        <span class="name">${esc(g.label)} <span class="emo">${sectorEmojis(g.sectors)}${g.rigi ? " " + RIGI_EMOJI : ""}</span></span><span class="n">${fmtNum(g.items.length)}</span>
         <span class="sub">${esc(sub || " ")}</span>${splitBar(g.sectors)}</button></li>`;
     }).join("")}</ol>`;
   }
@@ -582,9 +590,9 @@
     if (!rows.length) return `<p class="note">No se identificaron empresas para estos filtros.</p>`;
     return `<ol class="rank">${rows.map((g) => {
       const places = Object.entries(g.places).sort((a, b) => b[1] - a[1]).slice(0, 3).map((e) => e[0]).join(", ");
-      const sub = (g.rigi ? `${g.rigi} con RIGI. ` : "") + places;
+      const sub = (g.rigi ? `${RIGI_EMOJI} ${g.rigi} con RIGI. ` : "") + places;
       return `<li><button type="button" data-company="${esc(g.name)}">
-        <span class="name">${esc(g.name)}</span><span class="n">${fmtNum(g.n)}</span>
+        <span class="name">${esc(g.name)} <span class="emo">${sectorEmojis(g.sectors)}</span></span><span class="n">${fmtNum(g.n)}</span>
         <span class="sub">${esc(sub)}</span>${splitBar(g.sectors)}</button></li>`;
     }).join("")}</ol>`;
   }
