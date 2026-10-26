@@ -1,6 +1,6 @@
 {
- "updated": "2026-10-26T23:16:11Z",
- "duration_s": 123.0,
+ "updated": "2026-10-26T23:31:54Z",
+ "duration_s": 126.3,
  "total_items": 221,
  "sources": [
   {
@@ -32,8 +32,8 @@
    "country": "AR",
    "kind": "google",
    "ok": true,
-   "fetched": 45,
-   "kept": 1
+   "fetched": 44,
+   "kept": 0
   },
   {
    "name": "Google News Argentina #5",
@@ -56,7 +56,7 @@
    "country": "CL",
    "kind": "google",
    "ok": true,
-   "fetched": 56,
+   "fetched": 55,
    "kept": 0
   },
   {
@@ -88,7 +88,7 @@
    "country": "BO",
    "kind": "google",
    "ok": true,
-   "fetched": 56,
+   "fetched": 29,
    "kept": 0
   },
   {
@@ -112,7 +112,7 @@
    "country": "BO",
    "kind": "google",
    "ok": true,
-   "fetched": 46,
+   "fetched": 23,
    "kept": 0
   },
   {
@@ -120,7 +120,7 @@
    "country": "PY",
    "kind": "google",
    "ok": true,
-   "fetched": 56,
+   "fetched": 29,
    "kept": 0
   },
   {
@@ -144,7 +144,7 @@
    "country": "PY",
    "kind": "google",
    "ok": true,
-   "fetched": 46,
+   "fetched": 23,
    "kept": 0
   },
   {
@@ -152,7 +152,7 @@
    "country": "UY",
    "kind": "google",
    "ok": true,
-   "fetched": 56,
+   "fetched": 29,
    "kept": 0
   },
   {
@@ -176,7 +176,7 @@
    "country": "UY",
    "kind": "google",
    "ok": true,
-   "fetched": 46,
+   "fetched": 23,
    "kept": 0
   },
   {
@@ -184,7 +184,7 @@
    "country": "BR",
    "kind": "google",
    "ok": true,
-   "fetched": 61,
+   "fetched": 60,
    "kept": 0
   },
   {
@@ -192,15 +192,15 @@
    "country": "BR",
    "kind": "google",
    "ok": true,
-   "fetched": 59,
-   "kept": 7
+   "fetched": 20,
+   "kept": 5
   },
   {
    "name": "Google News Brasil #3",
    "country": "BR",
    "kind": "google",
    "ok": true,
-   "fetched": 58,
+   "fetched": 28,
    "kept": 0
   },
   {
@@ -208,7 +208,7 @@
    "country": "BR",
    "kind": "google",
    "ok": true,
-   "fetched": 27,
+   "fetched": 28,
    "kept": 0
   },
   {
@@ -225,7 +225,7 @@
    "kind": "sector",
    "ok": true,
    "fetched": 25,
-   "kept": 8
+   "kept": 0
   },
   {
    "name": "Minería Chilena",

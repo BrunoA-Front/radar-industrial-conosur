@@ -1,0 +1,1388 @@
+{
+ "360 Energy": {
+  "emails": [
+   {
+    "email": "comercial@360energy.solar",
+    "tipo": "general"
+   },
+   {
+    "email": "info@360energy.solar",
+    "tipo": "general"
+   }
+  ],
+  "fuentes": [
+   "https://www.360energy.solar/",
+   "https://www.360energy.solar/proveedores"
+  ],
+  "metodo": "web oficial",
+  "portal": "https://www.360energy.solar/proveedores",
+  "revisado": "2026-10-26",
+  "telefonos": [
+   "+54 (0230) 4384-555",
+   "+54 (0230) 4386-960"
+  ],
+  "web": "https://www.360energy.solar/"
+ },
+ "AESA": {
+  "error": "URLError",
+  "metodo": "web oficial",
+  "revisado": "2026-10-26",
+  "web": "https://aesa.com.ar"
+ },
+ "ANCAP": {
+  "error": "URLError",
+  "metodo": "web oficial",
+  "revisado": "2026-10-26",
+  "web": "https://ancap.com.uy"
+ },
+ "ANDE": {
+  "error": "URLError",
+  "metodo": "web oficial",
+  "revisado": "2026-10-26",
+  "web": "https://ande.gov.py"
+ },
+ "Albemarle": {
+  "emails": [
+   {
+    "email": "infoarg@albemarle.com",
+    "tipo": "general"
+   },
+   {
+    "email": "commau@albemarle.com",
+    "tipo": "otro"
+   },
+   {
+    "email": "singapore@albemarle.com",
+    "tipo": "otro"
+   },
+   {
+    "email": "u003ecommau@albemarle.com",
+    "tipo": "otro"
+   }
+  ],
+  "fuentes": [
+   "https://www.albemarle.com/us/en",
+   "https://www.albemarle.com/us/en/contact-us-0",
+   "https://investors.albemarle.com/resources/investor-contacts/default.aspx"
+  ],
+  "metodo": "web oficial",
+  "portal": "https://www.albemarle.com/us/en/suppliers",
+  "revisado": "2026-10-26",
+  "telefonos": [
+   "080000000000",
+   "+56552341500",
+   "+56552351008"
+  ],
+  "web": "https://www.albemarle.com/us/en"
+ },
+ "Aluar": {
+  "emails": [
+   {
+    "email": "u003evisitas@aluar.com.ar",
+    "tipo": "otro"
+   },
+   {
+    "email": "visitas@aluar.com.ar",
+    "tipo": "otro"
+   }
+  ],
+  "fuentes": [
+   "https://www.aluar.com.ar/",
+   "https://www.aluar.com.ar/contacto",
+   "https://www.aluar.com.ar/proveedores"
+  ],
+  "metodo": "web oficial",
+  "portal": "https://www.aluar.com.ar/proveedores",
+  "revisado": "2026-10-26",
+  "telefonos": [
+   "+541143137593",
+   "+541143119026",
+   "+54 280 4459 000"
+  ],
+  "web": "https://www.aluar.com.ar/"
+ },
+ "Andrade Gutierrez": {
+  "emails": [],
+  "fuentes": [
+   "https://andradegutierrez.com.br",
+   "https://andradegutierrez.com.br/Fornecedores.aspx"
+  ],
+  "metodo": "web oficial",
+  "portal": "https://andradegutierrez.com.br/Fornecedores.aspx",
+  "revisado": "2026-10-26",
+  "telefonos": [
+   "+55 11 5502-2003"
+  ],
+  "web": "https://andradegutierrez.com.br"
+ },
+ "Anglo American": {
+  "error": "HTTPError",
+  "metodo": "web oficial",
+  "revisado": "2026-10-26",
+  "web": "https://angloamerican.com"
+ },
+ "Antofagasta Minerals": {
+  "error": "URLError",
+  "metodo": "web oficial",
+  "revisado": "2026-10-26",
+  "web": "https://aminerals.cl"
+ },
+ "Arauco": {
+  "emails": [],
+  "fuentes": [
+   "https://na.arauco.com/"
+  ],
+  "metodo": "web oficial",
+  "portal": null,
+  "revisado": "2026-10-26",
+  "telefonos": [],
+  "web": "https://na.arauco.com/"
+ },
+ "Ausenco": {
+  "emails": [
+   {
+    "email": "info@ausenco.com",
+    "tipo": "general"
+   }
+  ],
+  "fuentes": [
+   "https://ausenco.com",
+   "https://ausenco.com/what-we-do/epc-epcm-contracting/",
+   "https://ausenco.com/contact-us/"
+  ],
+  "metodo": "web oficial",
+  "portal": "https://ausenco.com/what-we-do/epc-epcm-contracting/",
+  "revisado": "2026-10-26",
+  "telefonos": [],
+  "web": "https://ausenco.com"
+ },
+ "BHP": {
+  "error": "HTTPError",
+  "metodo": "web oficial",
+  "revisado": "2026-10-26",
+  "web": "https://bhp.com"
+ },
+ "Baker Hughes": {
+  "emails": [
+   {
+    "email": "mysupporthr@bakerhughes.com",
+    "tipo": "otro"
+   }
+  ],
+  "fuentes": [
+   "https://www.bakerhughes.com/",
+   "https://www.bakerhughes.com/contact-us"
+  ],
+  "metodo": "web oficial",
+  "portal": "https://www.bakerhughes.com/suppliers",
+  "revisado": "2026-10-26",
+  "telefonos": [],
+  "web": "https://www.bakerhughes.com/"
+ },
+ "Barrick": {
+  "emails": [
+   {
+    "email": "hr@barrick.com",
+    "tipo": "otro"
+   },
+   {
+    "email": "investor@barrick.com",
+    "tipo": "otro"
+   },
+   {
+    "email": "media@barrick.com",
+    "tipo": "otro"
+   }
+  ],
+  "fuentes": [
+   "https://www.barrick.com/English/home/default.aspx",
+   "https://www.barrick.com/English/about/contact-us/default.aspx"
+  ],
+  "metodo": "web oficial",
+  "portal": "https://www.barrick.com/suppliers/",
+  "revisado": "2026-10-26",
+  "telefonos": [
+   "+562 340 2022"
+  ],
+  "web": "https://www.barrick.com/English/home/default.aspx"
+ },
+ "Bechtel": {
+  "emails": [],
+  "fuentes": [
+   "https://www.bechtel.com/",
+   "https://www.bechtel.com/contact/"
+  ],
+  "metodo": "web oficial",
+  "portal": "https://www.bechtel.com/supplier/",
+  "revisado": "2026-10-26",
+  "telefonos": [
+   "+1 571 392 6300",
+   "+1 602 368 1500",
+   "+1 213 271-2480"
+  ],
+  "web": "https://www.bechtel.com/"
+ },
+ "Benito Roggio": {
+  "error": "URLError",
+  "metodo": "web oficial",
+  "revisado": "2026-10-26",
+  "web": "https://bfroggio.com.ar"
+ },
+ "Besalco": {
+  "emails": [],
+  "fuentes": [
+   "https://www.besalco.cl/",
+   "https://www.besalco.cl/contacto/",
+   "https://www.besalco.cl/registro-proveedores/"
+  ],
+  "metodo": "web oficial",
+  "portal": "https://www.besalco.cl/registro-proveedores/",
+  "revisado": "2026-10-26",
+  "telefonos": [
+   "+56223380800",
+   "+56) 2 2338 0800"
+  ],
+  "web": "https://www.besalco.cl/"
+ },
+ "Braskem": {
+  "error": "URLError",
+  "metodo": "web oficial",
+  "revisado": "2026-10-26",
+  "web": "https://braskem.com"
+ },
+ "CBMM": {
+  "emails": [
+   {
+    "email": "dpo@cbmm.com",
+    "tipo": "otro"
+   }
+  ],
+  "fuentes": [
+   "https://cbmm.com/en",
+   "https://cbmm.com/en/operations/suppliers",
+   "https://cbmm.com/en/cbmm-connect",
+   "https://cbmm.com/-/media/CBMM/PDF/PDFs---Misc---Port/Segurana-da-Informao-e-Proteo-de-Dados-para-terceiros-2026.pdf"
+  ],
+  "metodo": "web oficial",
+  "portal": "https://cbmm.com/en/operations/suppliers",
+  "revisado": "2026-10-26",
+  "telefonos": [
+   "+55 (34) 3669-3000",
+   "+55 (34) 3201-4500",
+   "+55 (34) 3669-3100"
+  ],
+  "web": "https://cbmm.com/en"
+ },
+ "CGC": {
+  "emails": [],
+  "fuentes": [
+   "https://cgc.energy/spanish/",
+   "https://cgc.energy/contacto/",
+   "https://cgc.energy/spanish/contacto/"
+  ],
+  "metodo": "web oficial",
+  "portal": "https://supplier.ariba.com",
+  "revisado": "2026-10-26",
+  "telefonos": [
+   "+54 11) 4849-6100"
+  ],
+  "web": "https://cgc.energy/spanish/"
+ },
+ "CSN": {
+  "error": "URLError",
+  "metodo": "web oficial",
+  "revisado": "2026-10-26",
+  "web": "https://csn.com.br"
+ },
+ "Calfrac": {
+  "emails": [
+   {
+    "email": "careers@calfrac.com",
+    "tipo": "otro"
+   }
+  ],
+  "fuentes": [
+   "https://calfrac.com",
+   "https://calfrac.com/contact/"
+  ],
+  "metodo": "web oficial",
+  "portal": null,
+  "revisado": "2026-10-26",
+  "telefonos": [
+   "+18667703722",
+   "+54 11 5776 7800"
+  ],
+  "web": "https://calfrac.com"
+ },
+ "Camuzzi": {
+  "emails": [],
+  "fuentes": [
+   "https://www.camuzzigas.com/",
+   "https://www.camuzzigas.com/proveedores/",
+   "https://www.camuzzigas.com/contacto/"
+  ],
+  "metodo": "web oficial",
+  "portal": "https://www.camuzzigas.com/proveedores/",
+  "revisado": "2026-10-26",
+  "telefonos": [
+   "54-11-5776-7000",
+   "08105553698",
+   "0810 666 0810"
+  ],
+  "web": "https://www.camuzzigas.com/"
+ },
+ "Capstone Copper": {
+  "emails": [
+   {
+    "email": "info@capstonecopper.com",
+    "tipo": "general"
+   }
+  ],
+  "fuentes": [
+   "https://capstonecopper.com",
+   "https://capstonecopper.com/supplier-hub/",
+   "https://capstonecopper.com/contact-us/"
+  ],
+  "metodo": "web oficial",
+  "portal": "https://capstonecopper.com/supplier-hub/",
+  "revisado": "2026-10-26",
+  "telefonos": [
+   "+56 55 269 3001",
+   "+56 55 2693040",
+   "+56 52 220 4220"
+  ],
+  "web": "https://capstonecopper.com"
+ },
+ "Central Puerto": {
+  "emails": [
+   {
+    "email": "comercial@centralpuerto.com",
+    "tipo": "general"
+   },
+   {
+    "email": "comercialgas@centralpuerto.com",
+    "tipo": "general"
+   },
+   {
+    "email": "info@centralpuerto.com",
+    "tipo": "general"
+   },
+   {
+    "email": "inversores@centralpuerto.com",
+    "tipo": "otro"
+   }
+  ],
+  "fuentes": [
+   "https://www.centralpuerto.com/",
+   "https://www.centralpuerto.com/contacto/",
+   "https://www.centralpuerto.com/en/contact/"
+  ],
+  "metodo": "web oficial",
+  "portal": "https://www.centralpuerto.com/proveedores/",
+  "revisado": "2026-10-26",
+  "telefonos": [
+   "+541143175000"
+  ],
+  "web": "https://www.centralpuerto.com/"
+ },
+ "Codelco": {
+  "emails": [],
+  "fuentes": [
+   "https://codelco.com",
+   "https://codelco.com/proveedores",
+   "https://codelco.com/contacto"
+  ],
+  "metodo": "web oficial",
+  "portal": "https://codelco.com/proveedores",
+  "revisado": "2026-10-26",
+  "telefonos": [
+   "+56 2 2690 3000",
+   "+56 227120247"
+  ],
+  "web": "https://codelco.com"
+ },
+ "Colbún": {
+  "error": "TimeoutError",
+  "metodo": "web oficial",
+  "revisado": "2026-10-26",
+  "web": "https://colbun.cl"
+ },
+ "Dycasa": {
+  "error": "URLError",
+  "metodo": "web oficial",
+  "revisado": "2026-10-26",
+  "web": "https://dycasa.com"
+ },
+ "ENAP": {
+  "error": "URLError",
+  "metodo": "web oficial",
+  "revisado": "2026-10-26",
+  "web": "https://enap.cl"
+ },
+ "Edenor": {
+  "emails": [
+   {
+    "email": "reg_proveedores@edenor.com",
+    "tipo": "compras"
+   }
+  ],
+  "fuentes": [
+   "https://www.edenor.com:443/",
+   "https://www.edenor.com:443/inversores/es/informacion-financiera/contactos",
+   "https://www.edenor.com:443/institucional/registro-de-proveedores"
+  ],
+  "metodo": "web oficial",
+  "portal": "https://www.edenor.com:443/institucional/registro-de-proveedores",
+  "revisado": "2026-10-26",
+  "telefonos": [
+   "08006661000",
+   "08006664005",
+   "08006664000"
+  ],
+  "web": "https://www.edenor.com:443/"
+ },
+ "Eletrobras": {
+  "emails": [],
+  "fuentes": [
+   "https://eletrobras.com/Paginas/default.aspx"
+  ],
+  "metodo": "web oficial",
+  "portal": null,
+  "revisado": "2026-10-26",
+  "telefonos": [],
+  "web": "https://eletrobras.com/Paginas/default.aspx"
+ },
+ "Eramet": {
+  "emails": [
+   {
+    "email": "ir@eramet.com",
+    "tipo": "otro"
+   }
+  ],
+  "fuentes": [
+   "https://www.eramet.com:443/en/",
+   "https://www.eramet.com/en/investors/contact/",
+   "https://www.eramet.com/fr/investisseurs/contact/"
+  ],
+  "metodo": "web oficial",
+  "portal": "https://www.eramet.com/en/suppliers/",
+  "revisado": "2026-10-26",
+  "telefonos": [],
+  "web": "https://www.eramet.com:443/en/"
+ },
+ "Esuco": {
+  "error": "URLError",
+  "metodo": "web oficial",
+  "revisado": "2026-10-26",
+  "web": "https://esuco.com.ar"
+ },
+ "First Quantum": {
+  "emails": [],
+  "fuentes": [
+   "https://www.first-quantum.com/",
+   "https://www.first-quantum.com/contact/",
+   "https://www.first-quantum.com/es/contacto/"
+  ],
+  "metodo": "web oficial",
+  "portal": "https://www.first-quantum.com/suppliers/",
+  "revisado": "2026-10-26",
+  "telefonos": [
+   "+14163616400",
+   "+15149827555",
+   "+18779616400"
+  ],
+  "web": "https://www.first-quantum.com/"
+ },
+ "Fluor": {
+  "emails": [],
+  "fuentes": [
+   "https://www.fluor.com/"
+  ],
+  "metodo": "web oficial",
+  "portal": "https://www.fluor.com/services-and-expertise/procurement",
+  "revisado": "2026-10-26",
+  "telefonos": [],
+  "web": "https://www.fluor.com/"
+ },
+ "Galan Lithium": {
+  "emails": [],
+  "fuentes": [
+   "https://galanlithium.com.au",
+   "https://galanlithium.com.au/contact-us/",
+   "https://galanlithium.com.au/es/contacto/"
+  ],
+  "metodo": "web oficial",
+  "portal": null,
+  "revisado": "2026-10-26",
+  "telefonos": [
+   "0892142150",
+   "+ 5411 4328-4121",
+   "0893226283"
+  ],
+  "web": "https://galanlithium.com.au"
+ },
+ "Ganfeng": {
+  "error": "URLError",
+  "metodo": "web oficial",
+  "revisado": "2026-10-26",
+  "web": "https://ganfenglithium.com"
+ },
+ "Genneia": {
+  "error": "URLError",
+  "metodo": "web oficial",
+  "revisado": "2026-10-26",
+  "web": "https://genneia.com.ar"
+ },
+ "Glencore": {
+  "emails": [
+   {
+    "email": "info@glencore.com",
+    "tipo": "general"
+   },
+   {
+    "email": "codeofconduct@glencore.com",
+    "tipo": "otro"
+   }
+  ],
+  "fuentes": [
+   "https://www.glencore.com/",
+   "https://www.glencore.com/contact-us",
+   "https://www.glencore.com/media-and-insights/media-contacts",
+   "https://www.glencore.com/en/suppliers"
+  ],
+  "metodo": "web oficial",
+  "portal": "https://www.glencore.com/suppliers",
+  "revisado": "2026-10-26",
+  "telefonos": [],
+  "web": "https://www.glencore.com/"
+ },
+ "HIF Global": {
+  "emails": [],
+  "fuentes": [
+   "https://hifglobal.com"
+  ],
+  "metodo": "web oficial",
+  "portal": "https://hifglobal.com/home?initialRequestUrl=http%3a%2f%2fhifglobal.com%2fproveedores",
+  "revisado": "2026-10-26",
+  "telefonos": [],
+  "web": "https://hifglobal.com"
+ },
+ "Halliburton": {
+  "error": "URLError",
+  "metodo": "web oficial",
+  "revisado": "2026-10-26",
+  "web": "https://halliburton.com"
+ },
+ "Harbour Energy": {
+  "emails": [
+   {
+    "email": "careers@harbourenergy.com",
+    "tipo": "otro"
+   }
+  ],
+  "fuentes": [
+   "https://www.harbourenergy.com/",
+   "https://www.harbourenergy.com/news-and-media/media-contacts/",
+   "https://www.harbourenergy.com/contact-us/"
+  ],
+  "metodo": "web oficial",
+  "portal": null,
+  "revisado": "2026-10-26",
+  "telefonos": [
+   "+54115542700",
+   "+44 (0)207 730 1111",
+   "+44 (0)207 660 5555"
+  ],
+  "web": "https://www.harbourenergy.com/"
+ },
+ "Hatch": {
+  "emails": [
+   {
+    "email": "gpisupport@hatch.com",
+    "tipo": "otro"
+   },
+   {
+    "email": "ngpisupport@hatch.com",
+    "tipo": "otro"
+   },
+   {
+    "email": "webmaster@hatch.com",
+    "tipo": "otro"
+   }
+  ],
+  "fuentes": [
+   "https://www.hatch.com/",
+   "https://www.hatch.com/en/About-Us/Information-for-Suppliers-Registration",
+   "https://www.hatch.com/en/About-Us/Contact-Us"
+  ],
+  "metodo": "web oficial",
+  "portal": "https://www.hatch.com/en/About-Us/Information-for-Suppliers-Registration",
+  "revisado": "2026-10-26",
+  "telefonos": [],
+  "web": "https://www.hatch.com/"
+ },
+ "Industrias Juan F. Secco": {
+  "metodo": "sin datos",
+  "revisado": "2026-10-26"
+ },
+ "José Cartellone": {
+  "emails": [
+   {
+    "email": "compras@cartellone.com.ar",
+    "tipo": "compras"
+   },
+   {
+    "email": "comercial@cartellone.com.ar",
+    "tipo": "general"
+   }
+  ],
+  "fuentes": [
+   "https://cartellone.com.ar",
+   "https://cartellone.com.ar/contacto/",
+   "https://cartellone.com.ar//contacto/"
+  ],
+  "metodo": "web oficial",
+  "portal": null,
+  "revisado": "2026-10-26",
+  "telefonos": [
+   "+ 542614819000",
+   "+541148601100",
+   "+ 54 261 481-9000"
+  ],
+  "web": "https://cartellone.com.ar"
+ },
+ "Kinross": {
+  "error": "URLError",
+  "metodo": "web oficial",
+  "revisado": "2026-10-26",
+  "web": "https://kinross.com"
+ },
+ "Lithium Argentina": {
+  "emails": [
+   {
+    "email": "info@lithium-argentina.com",
+    "tipo": "general"
+   },
+   {
+    "email": "ir@lithium-argentina.com",
+    "tipo": "otro"
+   }
+  ],
+  "fuentes": [
+   "https://www.lithium-argentina.com/",
+   "https://www.lithium-argentina.com/contact"
+  ],
+  "metodo": "web oficial",
+  "portal": null,
+  "revisado": "2026-10-26",
+  "telefonos": [
+   "+17786538092",
+   "+54 11 5263 0616"
+  ],
+  "web": "https://www.lithium-argentina.com/"
+ },
+ "Lundin Mining": {
+  "emails": [
+   {
+    "email": "info@lundinmining.com",
+    "tipo": "general"
+   }
+  ],
+  "fuentes": [
+   "https://lundinmining.com",
+   "https://lundinmining.com/about/contact/",
+   "https://lundinmining.com/contact/"
+  ],
+  "metodo": "web oficial",
+  "portal": null,
+  "revisado": "2026-10-26",
+  "telefonos": [],
+  "web": "https://lundinmining.com"
+ },
+ "McEwen Copper": {
+  "emails": [],
+  "fuentes": [
+   "https://mcewencopper.com"
+  ],
+  "metodo": "web oficial",
+  "portal": null,
+  "revisado": "2026-10-26",
+  "telefonos": [],
+  "web": "https://mcewencopper.com"
+ },
+ "Milicic": {
+  "emails": [],
+  "fuentes": [
+   "https://www.milicic.com.ar/",
+   "https://www.milicic.com.ar/contacto/"
+  ],
+  "metodo": "web oficial",
+  "portal": "https://www.milicic.com.ar/proveedores/",
+  "revisado": "2026-10-26",
+  "telefonos": [
+   "+54 341 4095600",
+   "+54 264 424 2245",
+   "+ 54 11 5217 1857"
+  ],
+  "web": "https://www.milicic.com.ar/"
+ },
+ "Nabors": {
+  "emails": [],
+  "fuentes": [
+   "https://www.nabors.com/",
+   "https://www.nabors.com/careers/isenberg-education-fund-scholarship/",
+   "https://www.nabors.com/contact-us/"
+  ],
+  "metodo": "web oficial",
+  "portal": null,
+  "revisado": "2026-10-26",
+  "telefonos": [
+   "866-433-4345"
+  ],
+  "web": "https://www.nabors.com/"
+ },
+ "Newmont": {
+  "emails": [],
+  "fuentes": [
+   "https://newmont.com/home/default.aspx",
+   "https://www.newmont.com/about-us/contact-us/default.aspx",
+   "https://newmont.com/about-us/contact-us/default.aspx"
+  ],
+  "metodo": "web oficial",
+  "portal": "https://newmont.com/suppliers-new/default.aspx",
+  "revisado": "2026-10-26",
+  "telefonos": [
+   "303-863-7414",
+   "303-837-5837",
+   "233-30-701-1852"
+  ],
+  "web": "https://newmont.com/home/default.aspx"
+ },
+ "Nordex": {
+  "emails": [],
+  "fuentes": [
+   "https://www.nordex-online.com/en/"
+  ],
+  "metodo": "web oficial",
+  "portal": null,
+  "revisado": "2026-10-26",
+  "telefonos": [],
+  "web": "https://www.nordex-online.com/en/"
+ },
+ "Oldelval": {
+  "error": "URLError",
+  "metodo": "web oficial",
+  "revisado": "2026-10-26",
+  "web": "https://oldelval.com"
+ },
+ "POSCO": {
+  "emails": [],
+  "fuentes": [
+   "http://www.posco.com"
+  ],
+  "metodo": "wikidata",
+  "portal": null,
+  "revisado": "2026-10-26",
+  "telefonos": [],
+  "web": "http://www.posco.com"
+ },
+ "Pampa Energía": {
+  "emails": [
+   {
+    "email": "contacto@pampa.com",
+    "tipo": "general"
+   },
+   {
+    "email": "prensa@pampa.com",
+    "tipo": "general"
+   },
+   {
+    "email": "fundacion@pampa.com",
+    "tipo": "otro"
+   }
+  ],
+  "fuentes": [
+   "https://pampa.com/",
+   "https://pampa.com/contacto/"
+  ],
+  "metodo": "web oficial",
+  "portal": "https://pampa.com/proveedores/",
+  "revisado": "2026-10-26",
+  "telefonos": [
+   "+54 (11) 4344-6000"
+  ],
+  "web": "https://pampa.com/"
+ },
+ "Pan American Energy": {
+  "error": "URLError",
+  "metodo": "web oficial",
+  "revisado": "2026-10-26",
+  "web": "https://pan-energy.com"
+ },
+ "Pan American Silver": {
+  "emails": [
+   {
+    "email": "info@panamericansilver.com",
+    "tipo": "general"
+   },
+   {
+    "email": "ir@panamericansilver.com",
+    "tipo": "otro"
+   }
+  ],
+  "fuentes": [
+   "https://panamericansilver.com",
+   "https://panamericansilver.com/about/contact/"
+  ],
+  "metodo": "web oficial",
+  "portal": null,
+  "revisado": "2026-10-26",
+  "telefonos": [
+   "(604) 684-1175",
+   "+1 (604) 684-1175",
+   "+1 (604) 684-0147"
+  ],
+  "web": "https://panamericansilver.com"
+ },
+ "Petrobras": {
+  "emails": [
+   {
+    "email": "sac@petrobras.com.br",
+    "tipo": "otro"
+   }
+  ],
+  "fuentes": [
+   "https://petrobras.com.br",
+   "https://canalfornecedor.petrobras.com.br/",
+   "https://petrobras.com.br/fale-conosco"
+  ],
+  "metodo": "web oficial",
+  "portal": "https://canalfornecedor.petrobras.com.br/",
+  "revisado": "2026-10-26",
+  "telefonos": [
+   "0800 728 9001",
+   "+5540209876",
+   "0647-1118-9457"
+  ],
+  "web": "https://petrobras.com.br"
+ },
+ "Petropar": {
+  "error": "URLError",
+  "metodo": "web oficial",
+  "revisado": "2026-10-26",
+  "web": "https://petropar.gov.py"
+ },
+ "Pluspetrol": {
+  "error": "URLError",
+  "metodo": "web oficial",
+  "revisado": "2026-10-26",
+  "web": "https://pluspetrol.net"
+ },
+ "Profertil": {
+  "error": "URLError",
+  "metodo": "web oficial",
+  "revisado": "2026-10-26",
+  "web": "https://profertil.com.ar"
+ },
+ "Rio Tinto": {
+  "emails": [
+   {
+    "email": "vendorfeedback@riotinto.com",
+    "tipo": "compras"
+   }
+  ],
+  "fuentes": [
+   "https://www.riotinto.com/",
+   "https://www.riotinto.com/en/about/suppliers/local-suppliers"
+  ],
+  "metodo": "web oficial",
+  "portal": "https://www.riotinto.com/en/about/suppliers",
+  "revisado": "2026-10-26",
+  "telefonos": [],
+  "web": "https://www.riotinto.com/"
+ },
+ "SACDE": {
+  "error": "URLError",
+  "metodo": "web oficial",
+  "revisado": "2026-10-26",
+  "web": "https://sacde.com.ar"
+ },
+ "SLB": {
+  "emails": [],
+  "fuentes": [
+   "https://www.slb.com/"
+  ],
+  "metodo": "web oficial",
+  "portal": "https://www.slb.com/partners/embedded-partners-and-suppliers/responsible-supply-chain",
+  "revisado": "2026-10-26",
+  "telefonos": [],
+  "web": "https://www.slb.com/"
+ },
+ "SQM": {
+  "emails": [],
+  "fuentes": [
+   "https://www.sqm.com/",
+   "https://www.sqm.com/contacto/"
+  ],
+  "metodo": "web oficial",
+  "portal": null,
+  "revisado": "2026-10-26",
+  "telefonos": [
+   "+56-2-2425-2000"
+  ],
+  "web": "https://www.sqm.com/"
+ },
+ "Saipem": {
+  "emails": [
+   {
+    "email": "vendor.management@saipem.com",
+    "tipo": "compras"
+   },
+   {
+    "email": "recruiting@saipem.com",
+    "tipo": "otro"
+   }
+  ],
+  "fuentes": [
+   "https://www.saipem.com/en",
+   "https://www.saipem.com/en/offices-contacts",
+   "https://www.saipem.com/en/governance/governance-contacts"
+  ],
+  "metodo": "web oficial",
+  "portal": null,
+  "revisado": "2026-10-26",
+  "telefonos": [
+   "+55 213232-5300",
+   "+55 133328-6500",
+   "+56 227 267 312"
+  ],
+  "web": "https://www.saipem.com/en"
+ },
+ "SalfaCorp": {
+  "error": "HTTPError",
+  "metodo": "web oficial",
+  "revisado": "2026-10-26",
+  "web": "https://salfacorp.com"
+ },
+ "Shell": {
+  "emails": [],
+  "fuentes": [
+   "https://www.shell.com.ar/"
+  ],
+  "metodo": "web oficial",
+  "portal": null,
+  "revisado": "2026-10-26",
+  "telefonos": [],
+  "web": "https://www.shell.com.ar/"
+ },
+ "Siemens Energy": {
+  "emails": [
+   {
+    "email": "contact-latam@siemens-energy.com",
+    "tipo": "general"
+   },
+   {
+    "email": "contact.cn@siemens-energy.com",
+    "tipo": "general"
+   },
+   {
+    "email": "contact.om@siemens-energy.com",
+    "tipo": "general"
+   },
+   {
+    "email": "contact@siemens-energy.com",
+    "tipo": "general"
+   }
+  ],
+  "fuentes": [
+   "https://www.siemens-energy.com/global/en/home.html",
+   "https://www.siemens-energy.com/global/en/home/contact.html"
+  ],
+  "metodo": "web oficial",
+  "portal": "https://www.siemens-energy.com/global/en/home/supplier.html",
+  "revisado": "2026-10-26",
+  "telefonos": [
+   "+49 911 6505 6505",
+   "+49 89 207084040",
+   "0800 011-9489"
+  ],
+  "web": "https://www.siemens-energy.com/global/en/home.html"
+ },
+ "Sigdo Koppers": {
+  "error": "URLError",
+  "metodo": "web oficial",
+  "revisado": "2026-10-26",
+  "web": "https://sigdokoppers.cl"
+ },
+ "Sigma Lithium": {
+  "metodo": "sin datos",
+  "revisado": "2026-10-26"
+ },
+ "Supercemento": {
+  "error": "URLError",
+  "metodo": "web oficial",
+  "revisado": "2026-10-26",
+  "web": "https://supercemento.com.ar"
+ },
+ "Suzano": {
+  "emails": [
+   {
+    "email": "contatoprofessional@suzano.com.br",
+    "tipo": "general"
+   },
+   {
+    "email": "biopulpsales@suzano.com.br",
+    "tipo": "otro"
+   },
+   {
+    "email": "rhresponde@suzano.com.br",
+    "tipo": "otro"
+   }
+  ],
+  "fuentes": [
+   "https://www.suzano.com.br/",
+   "https://www.suzano.com.br/fale-conosco",
+   "https://www.suzano.com.br/fornecedores/parcerias-florestais"
+  ],
+  "metodo": "web oficial",
+  "portal": "https://www.suzano.com.br/fornecedores",
+  "revisado": "2026-10-26",
+  "telefonos": [
+   "+55-11-4000-1222",
+   "0800-283-8383",
+   "0800-771-1418"
+  ],
+  "web": "https://www.suzano.com.br/"
+ },
+ "TGN": {
+  "emails": [],
+  "fuentes": [
+   "https://tgn.com.ar"
+  ],
+  "metodo": "web oficial",
+  "portal": null,
+  "revisado": "2026-10-26",
+  "telefonos": [],
+  "web": "https://tgn.com.ar"
+ },
+ "TGS": {
+  "emails": [
+   {
+    "email": "info@tgs.com.ar",
+    "tipo": "general"
+   }
+  ],
+  "fuentes": [
+   "https://www.tgs.com.ar/",
+   "https://www.tgs.com.ar/contacto/",
+   "https://www.tgs.com.ar/proveedores/",
+   "https://www.tgs.com.ar/en/contact/"
+  ],
+  "metodo": "web oficial",
+  "portal": "https://www.tgs.com.ar/?page_id=10153",
+  "revisado": "2026-10-26",
+  "telefonos": [
+   "01137515100",
+   "0087566587499",
+   "(054) 11 3751 5100"
+  ],
+  "web": "https://www.tgs.com.ar/"
+ },
+ "Techint Ingeniería y Construcción": {
+  "error": "URLError",
+  "metodo": "web oficial",
+  "revisado": "2026-10-26",
+  "web": "https://techint-ingenieria.com"
+ },
+ "Teck": {
+  "emails": [
+   {
+    "email": "art@teck.com",
+    "tipo": "otro"
+   },
+   {
+    "email": "exploration@teck.com",
+    "tipo": "otro"
+   },
+   {
+    "email": "investors@teck.com",
+    "tipo": "otro"
+   },
+   {
+    "email": "tai@teck.com",
+    "tipo": "otro"
+   }
+  ],
+  "fuentes": [
+   "https://www.teck.com/",
+   "https://www.teck.com/about/contact/",
+   "https://www.teck.com/investors/contact-us/"
+  ],
+  "metodo": "web oficial",
+  "portal": null,
+  "revisado": "2026-10-26",
+  "telefonos": [
+   "6046994000",
+   "86 2120370000",
+   "18777596226"
+  ],
+  "web": "https://www.teck.com/"
+ },
+ "Tecpetrol": {
+  "error": "URLError",
+  "metodo": "web oficial",
+  "revisado": "2026-10-26",
+  "web": "https://tecpetrol.com"
+ },
+ "Tenaris": {
+  "emails": [],
+  "fuentes": [
+   "https://www.tenaris.com/en",
+   "https://www.tenaris.com/en/contact/tenaris-around-the-world",
+   "https://www.tenaris.com/en/contact/licensees-network"
+  ],
+  "metodo": "web oficial",
+  "portal": null,
+  "revisado": "2026-10-26",
+  "telefonos": [
+   "+54 2657 432106",
+   "+54 351 497 2416",
+   "+54 336 44382 92"
+  ],
+  "web": "https://www.tenaris.com/en"
+ },
+ "Ternium": {
+  "emails": [],
+  "fuentes": [
+   "https://us.ternium.com/en"
+  ],
+  "metodo": "web oficial",
+  "portal": null,
+  "revisado": "2026-10-26",
+  "telefonos": [],
+  "web": "https://us.ternium.com/en"
+ },
+ "TotalEnergies": {
+  "emails": [],
+  "fuentes": [
+   "https://totalenergies.com.ar/es"
+  ],
+  "metodo": "web oficial",
+  "portal": null,
+  "revisado": "2026-10-26",
+  "telefonos": [],
+  "web": "https://totalenergies.com.ar/es"
+ },
+ "Transener": {
+  "emails": [
+   {
+    "email": "registro_proveedores@transener.com.ar",
+    "tipo": "compras"
+   },
+   {
+    "email": "prensa@transener.com.ar",
+    "tipo": "general"
+   }
+  ],
+  "fuentes": [
+   "https://www.transener.com.ar/",
+   "https://www.transener.com.ar/proveedores/",
+   "https://www.transener.com.ar/contacto-prensa/",
+   "https://www.transener.com.ar/contacto-2/"
+  ],
+  "metodo": "web oficial",
+  "portal": "https://www.transener.com.ar/proveedores/",
+  "revisado": "2026-10-26",
+  "telefonos": [
+   "+54 11) 5167-9100",
+   "0800-333-3904",
+   "(011) 5167-6200"
+  ],
+  "web": "https://www.transener.com.ar/"
+ },
+ "UPM": {
+  "emails": [],
+  "fuentes": [
+   "https://www.upm.uy/",
+   "https://www.upm.uy/contacto/"
+  ],
+  "metodo": "web oficial",
+  "portal": null,
+  "revisado": "2026-10-26",
+  "telefonos": [
+   "+598) 2604 6660 18",
+   "+598) 4722 4644",
+   "+598) 456 20100"
+  ],
+  "web": "https://www.upm.uy/"
+ },
+ "UTE": {
+  "error": "HTTPError",
+  "metodo": "web oficial",
+  "revisado": "2026-10-26",
+  "web": "https://ute.com.uy"
+ },
+ "VMOS": {
+  "metodo": "sin datos",
+  "revisado": "2026-10-26"
+ },
+ "Vale": {
+  "emails": [
+   {
+    "email": "meurh@saas.vale.com",
+    "tipo": "otro"
+   }
+  ],
+  "fuentes": [
+   "https://vale.com",
+   "https://vale.com/contacts",
+   "https://vale.com/be-a-supplier",
+   "https://vale.com/contact-us"
+  ],
+  "metodo": "web oficial",
+  "portal": "https://vale.com/suppliers",
+  "revisado": "2026-10-26",
+  "telefonos": [
+   "+55 (21) 3485-5000",
+   "0800-701-1616",
+   "+55 (11) 3684 9441"
+  ],
+  "web": "https://vale.com"
+ },
+ "Vestas": {
+  "emails": [
+   {
+    "email": "vestas@vestas.com",
+    "tipo": "otro"
+   }
+  ],
+  "fuentes": [
+   "https://www.vestas.com/en",
+   "https://www.vestas.com/en/about/our-locations"
+  ],
+  "metodo": "web oficial",
+  "portal": "https://www.vestas.com/en/about/our-partners/Suppliers",
+  "revisado": "2026-10-26",
+  "telefonos": [],
+  "web": "https://www.vestas.com/en"
+ },
+ "Vista Energy": {
+  "emails": [
+   {
+    "email": "in@vistaenergy.com",
+    "tipo": "otro"
+   },
+   {
+    "email": "ir@vistaenergy.com",
+    "tipo": "otro"
+   }
+  ],
+  "fuentes": [
+   "https://www.vistaenergy.com/",
+   "https://www.vistaenergy.com/contacto",
+   "https://www.vistaenergy.com/proveedores",
+   "https://www.vistaenergy.com/contacto?type=suppliers"
+  ],
+  "metodo": "web oficial",
+  "portal": "https://www.vistaenergy.com/proveedores",
+  "revisado": "2026-10-26",
+  "telefonos": [
+   "+525515557104",
+   "+54111137548500",
+   "+542994307100"
+  ],
+  "web": "https://www.vistaenergy.com/"
+ },
+ "Weatherford": {
+  "emails": [
+   {
+    "email": "proveedoresweatherford.quito@weatherford.com",
+    "tipo": "compras"
+   },
+   {
+    "email": "recepcionde.facturas@weatherford.com",
+    "tipo": "general"
+   },
+   {
+    "email": "acctspaycanada@weatherford.com",
+    "tipo": "otro"
+   },
+   {
+    "email": "acctspaychile@weatherford.com",
+    "tipo": "otro"
+   }
+  ],
+  "fuentes": [
+   "https://www.weatherford.com/",
+   "https://www.weatherford.com/about-us/supplier-resources/"
+  ],
+  "metodo": "web oficial",
+  "portal": "https://www.weatherford.com/about-us/supplier-resources/",
+  "revisado": "2026-10-26",
+  "telefonos": [],
+  "web": "https://www.weatherford.com/"
+ },
+ "Worley": {
+  "emails": [],
+  "fuentes": [
+   "https://www.worley.com/"
+  ],
+  "metodo": "web oficial",
+  "portal": "https://www.worley.com/en/solutions/services-and-technology/enhance-project-delivery/procurement-and-supply-chain-management",
+  "revisado": "2026-10-26",
+  "telefonos": [],
+  "web": "https://www.worley.com/"
+ },
+ "YPF": {
+  "emails": [],
+  "fuentes": [
+   "https://ypf.com"
+  ],
+  "metodo": "web oficial",
+  "portal": "https://ypf.com/error.html?errorCode=404%26errorMessage=Pagina%20no%20disponible",
+  "revisado": "2026-10-26",
+  "telefonos": [],
+  "web": "https://ypf.com"
+ },
+ "YPF Luz": {
+  "emails": [
+   {
+    "email": "gestion-proveedores@ypfluz.com",
+    "tipo": "compras"
+   },
+   {
+    "email": "posibleproveedor@ypfluz.com",
+    "tipo": "compras"
+   },
+   {
+    "email": "sugerencias@ypfluz.com",
+    "tipo": "otro"
+   }
+  ],
+  "fuentes": [
+   "https://ypfluz.com",
+   "https://ypfluz.com/Contacto",
+   "https://ypfluz.com/Proveedores",
+   "https://ypfluz.com/contacto"
+  ],
+  "metodo": "web oficial",
+  "portal": "https://ypfluz.com/Proveedores",
+  "revisado": "2026-10-26",
+  "telefonos": [
+   "+54 011 54417910",
+   "+54 381 4911 884",
+   "+54 11 5441 5400"
+  ],
+  "web": "https://ypfluz.com"
+ },
+ "YPFB": {
+  "error": "URLError",
+  "metodo": "web oficial",
+  "revisado": "2026-10-26",
+  "web": "https://ypfb.gob.bo"
+ },
+ "Yamana / Agua Rica": {
+  "metodo": "sin datos",
+  "revisado": "2026-10-26"
+ }
+}
