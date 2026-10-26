@@ -60,7 +60,8 @@
     period: 90,
     company: null,
     level: "country",
-    view: { type: "ranking", tab: "zonas" },   // o { type: "zone", level, key } / { type: "company", name }
+    view: { type: "ranking", tab: "novedades" },   // o { type: "zone", level, key } / { type: "company", name }
+    contacts: {},
     groups: { country: [], prov: [], city: [] },
     hasProvinces: false,
   };
@@ -71,6 +72,9 @@
   const fmtNum = (n) => n.toLocaleString("es-AR");
   const plural = (n, one, many) => `${fmtNum(n)} ${n === 1 ? one : many}`;
   const daysAgo = (iso) => (Date.now() - Date.parse(iso)) / 86400000;
+  const NEW_DAYS = 2;  // "NUEVO" = últimas 48 horas
+  const isNew = (it) => daysAgo(it.date) <= NEW_DAYS;
+  const contractorsOf = (it) => it.contractors || [];
 
   async function getJSON(url) {
     const res = await fetch(url, { cache: "no-cache" });
@@ -81,7 +85,7 @@
   function passes(it) {
     if (!it.sectors.some((s) => state.sectors.has(s))) return false;
     if (state.period && daysAgo(it.date) > state.period) return false;
-    if (state.company && !it.companies.includes(state.company)) return false;
+    if (state.company && !it.companies.includes(state.company) && !contractorsOf(it).includes(state.company)) return false;
     return true;
   }
 
@@ -90,13 +94,15 @@
   // ---------------------------------------------------------------------------
 
   function newGroup(key, level, label, where, lat, lon) {
-    return { key, level, label, where, lat, lon, items: [], sectors: {}, companies: {}, rigi: 0 };
+    return { key, level, label, where, lat, lon, items: [], sectors: {}, companies: {}, contractors: {}, rigi: 0, fresh: 0 };
   }
   function addTo(g, it) {
     g.items.push(it);
     it.sectors.forEach((s) => { g.sectors[s] = (g.sectors[s] || 0) + 1; });
     it.companies.forEach((c) => { g.companies[c] = (g.companies[c] || 0) + 1; });
+    contractorsOf(it).forEach((c) => { g.contractors[c] = (g.contractors[c] || 0) + 1; });
     if (it.signals.includes("rigi")) g.rigi += 1;
+    if (isNew(it)) g.fresh += 1;
   }
 
   function buildGroups() {
@@ -365,6 +371,7 @@
       map.on("zoom", onZoom);
       map.on("movestart", (e) => { if (e.originalEvent === undefined) clearHover(); });
       onZoom();
+      refreshNewPins();
       if (revealed) flyHome();
     });
   }
@@ -373,6 +380,23 @@
     if (!map || !map.getSource("dots-country")) return;
     clearHover();
     for (const level of ["country", "prov", "city"]) map.getSource(`dots-${level}`).setData(dotsGeoJSON(level));
+    refreshNewPins();
+  }
+
+  const newPins = [];
+  function refreshNewPins() {
+    newPins.splice(0).forEach((m) => m.remove());
+    if (!map) return;
+    for (const g of state.groups[state.level]) {
+      if (!g.fresh) continue;
+      const el = document.createElement("button");
+      el.type = "button";
+      el.className = "new-pin";
+      el.textContent = `NUEVO${g.fresh > 1 ? " " + g.fresh : ""}`;
+      el.title = `${g.label}: ${plural(g.fresh, "noticia nueva", "noticias nuevas")} en 48 h`;
+      el.addEventListener("click", () => openZone(state.level, g.key, true));
+      newPins.push(new maplibregl.Marker({ element: el, anchor: "bottom", offset: [0, -10] }).setLngLat([g.lon, g.lat]).addTo(map));
+    }
   }
 
   function onZoom() {
@@ -381,6 +405,7 @@
     countryMarkers.forEach((m) => { m.getElement().style.display = level === "country" ? "" : "none"; });
     if (level !== state.level) {
       state.level = level;
+      refreshNewPins();
       renderLevels();
       if (state.view.type === "ranking") renderDrawer();
     }
@@ -431,9 +456,11 @@
     return `<h3>${sectorEmojis(g.sectors)} ${esc(g.label)}</h3>
       ${g.where ? `<div class="where">${esc(g.where)}</div>` : ""}
       <div class="sec">${sectorRows(g)}</div>
-      <div class="co">${cos.length ? `Empresas: <strong>${esc(cos.join(", "))}</strong>${more > 0 ? ` y ${more} más` : ""}` : "Empresas: no identificadas en las notas"}</div>
+      <div class="co">${cos.length ? `Dueños: <strong>${esc(cos.join(", "))}</strong>${more > 0 ? ` y ${more} más` : ""}` : "Dueños: no identificados en las notas"}</div>
+      ${Object.keys(g.contractors).length ? `<div class="co">🏗️ Segundo anillo: <strong>${esc(Object.keys(g.contractors).slice(0, 3).join(", "))}</strong></div>` : ""}
+      ${g.fresh ? `<div class="co fresh">🆕 ${plural(g.fresh, "nueva en 48 h", "nuevas en 48 h")}</div>` : ""}
       <div class="status">${g.rigi ? `<span>${RIGI_EMOJI} ${plural(g.rigi, "con RIGI", "con RIGI")}</span>` : ""}${g.items.length - g.rigi ? `<span>${NEWS_EMOJI} ${plural(g.items.length - g.rigi, "solo noticia", "solo noticias")}</span>` : ""}</div>
-      <div class="cta">${plural(g.items.length, "noticia", "noticias")}. Clic para verlas.</div>`;
+      <div class="cta">${plural(g.items.length, "noticia", "noticias")}. Clic para ver proyectos y contactos.</div>`;
   }
 
   // ---------------------------------------------------------------------------
@@ -517,6 +544,120 @@
       </div></li>`).join("")}</ul>`;
   }
 
+  // --- Proyectos y contactos ---------------------------------------------------
+
+  const placeOf = (it) => it.city || it.admin1 || COUNTRIES[it.country] || it.country;
+  const shortUrl = (u) => u.replace(/^https?:\/\//, "").replace(/\/$/, "");
+
+  function buildProjects(items) {
+    const byKey = new Map();
+    for (const it of items) {
+      const owner = it.companies[0] || contractorsOf(it)[0] || "";
+      const key = it.project ? `p:${it.project}` : `a:${owner}|${it.sectors[0]}|${it.country}|${it.admin1 || ""}|${it.city || ""}`;
+      if (!byKey.has(key)) {
+        const sector = SECTORS[it.sectors[0]]?.label || "Obra";
+        byKey.set(key, {
+          key,
+          name: it.project || (owner ? `${owner} en ${placeOf(it)}` : `${sector} en ${placeOf(it)}`),
+          items: [], owners: {}, contractors: {}, sectors: {}, places: {}, rigi: 0, last: it.date, fresh: 0,
+        });
+      }
+      const p = byKey.get(key);
+      p.items.push(it);
+      it.companies.forEach((c) => { p.owners[c] = (p.owners[c] || 0) + 1; });
+      contractorsOf(it).forEach((c) => { p.contractors[c] = (p.contractors[c] || 0) + 1; });
+      it.sectors.forEach((s) => { p.sectors[s] = (p.sectors[s] || 0) + 1; });
+      const pl = [it.city, it.admin1, COUNTRIES[it.country]].filter(Boolean).join(", ");
+      p.places[pl] = (p.places[pl] || 0) + 1;
+      if (it.signals.includes("rigi")) p.rigi += 1;
+      if (isNew(it)) p.fresh += 1;
+      if (it.date > p.last) p.last = it.date;
+    }
+    return [...byKey.values()].sort((a, b) => (b.fresh - a.fresh) || (a.last < b.last ? 1 : -1));
+  }
+
+  const contractorRole = (name) =>
+    state.items.some((it) => contractorsOf(it).includes(name)) && !state.items.some((it) => it.companies.includes(name));
+
+  function hasContact(name) {
+    const c = state.contacts[name];
+    return Boolean(c && (c.portal || (c.emails && c.emails.length) || (c.telefonos && c.telefonos.length)));
+  }
+
+  function contactCard(name, role, big = false) {
+    const c = state.contacts[name];
+    const roleTag = role === "contratista"
+      ? `<span class="role ring">🏗️ Segundo anillo</span>`
+      : `<span class="role">Dueño del proyecto</span>`;
+    let body;
+    if (!hasContact(name)) {
+      body = `<p class="none">Sin contacto todavía.${c && c.web
+        ? ` Web: <a href="${esc(c.web)}" target="_blank" rel="noopener">${esc(shortUrl(c.web))}</a>`
+        : " El robot lo busca en la próxima actualización."}</p>`;
+    } else {
+      const rows = [];
+      if (c.portal) rows.push(`<li>🧾 <a href="${esc(c.portal)}" target="_blank" rel="noopener">Portal de proveedores</a></li>`);
+      (c.emails || []).forEach((e) => rows.push(`<li>✉️ <a href="mailto:${esc(e.email)}">${esc(e.email)}</a>${
+        e.tipo === "compras" ? ` <span class="kind buy">Compras</span>` : e.tipo === "general" ? ` <span class="kind">General</span>` : ""}</li>`));
+      (c.telefonos || []).forEach((t) => rows.push(`<li>☎️ <a href="tel:${esc(t.replace(/[^\d+]/g, ""))}">${esc(t)}</a></li>`));
+      if (c.web) rows.push(`<li>🌐 <a href="${esc(c.web)}" target="_blank" rel="noopener">${esc(shortUrl(c.web))}</a></li>`);
+      const src = (c.fuentes || [])[0];
+      const badge = c.metodo === "web oficial"
+        ? `<span class="badge ok">Datos de su web oficial</span>`
+        : `<span class="badge warn">Sin verificar (búsqueda automática)</span>`;
+      body = `<ul class="contact">${rows.join("")}</ul>
+        <p class="src">${badge}${src ? ` <a href="${esc(src)}" target="_blank" rel="noopener">Ver fuente</a>` : ""}${
+          c.revisado ? `. Revisado el ${fmtDate(c.revisado + "T12:00:00Z")}` : ""}</p>`;
+    }
+    return `<div class="ccard${role === "contratista" ? " ring" : ""}${big ? " big" : ""}"><div class="chead"><strong>${esc(name)}</strong>${roleTag}</div>${body}</div>`;
+  }
+
+  function projectCard(p, open) {
+    const owners = Object.keys(p.owners);
+    const contractors = Object.keys(p.contractors);
+    const place = Object.entries(p.places).sort((a, b) => b[1] - a[1])[0]?.[0] || "";
+    const companyButtons = (list) => list.map((c) => `<button type="button" class="tag link" data-company="${esc(c)}">${esc(c)}</button>`).join(" ");
+    const contacts = [
+      ...contractors.map((c) => contactCard(c, "contratista")),
+      ...owners.map((c) => contactCard(c, "dueño")),
+    ].join("");
+    return `<details class="proj"${open ? " open" : ""}>
+      <summary>
+        <span class="ptitle"><span class="emo">${sectorEmojis(p.sectors)} ${p.rigi ? RIGI_EMOJI : NEWS_EMOJI}</span> ${esc(p.name)}${p.fresh ? ` <span class="new">NUEVO</span>` : ""}</span>
+        <span class="pmeta">${esc(place)}. ${plural(p.items.length, "noticia", "noticias")}, la última del ${fmtDate(p.last)}</span>
+      </summary>
+      <div class="pbody">
+        <dl class="roles">
+          <div><dt>Dueño del proyecto</dt><dd>${owners.length ? companyButtons(owners) : "No identificado en las notas"}</dd></div>
+          <div class="ring"><dt>🏗️ Segundo anillo (quién ejecuta la obra)</dt><dd>${contractors.length ? companyButtons(contractors) : "Todavía no aparece en las noticias"}</dd></div>
+        </dl>
+        ${contacts ? `<h4>📇 Contactos</h4>${contacts}` : ""}
+        <h4>📰 Noticias</h4>${newsList(p.items)}
+      </div>
+    </details>`;
+  }
+
+  function projectList(items) {
+    if (!items.length) return `<p class="note">No hay noticias con estos filtros.</p>`;
+    const projects = buildProjects(items);
+    return `<p class="note small">${plural(projects.length, "proyecto", "proyectos")}. Abrí uno para ver quién lo ejecuta, los contactos y las noticias.</p>`
+      + projects.slice(0, 80).map((p, i) => projectCard(p, i === 0)).join("");
+  }
+
+  function newsFeed() {
+    const base = state.items.filter((it) => it.sectors.some((s) => state.sectors.has(s))
+      && (!state.company || it.companies.includes(state.company) || contractorsOf(it).includes(state.company)));
+    let items = base.filter(isNew);
+    let note = "";
+    if (!items.length) {
+      items = base.filter((it) => daysAgo(it.date) <= 7);
+      note = `<p class="note">No hubo novedades en las últimas 48 horas. Te muestro las de la última semana.</p>`;
+    }
+    if (!items.length) return `<p class="note">No hay novedades en la última semana.</p>`;
+    return note + projectList(items);
+  }
+
+
   function periodText() {
     return state.period ? `últimos ${state.period} días` : "todo el historial";
   }
@@ -531,29 +672,31 @@
         <h2>${esc(g ? g.label : "Sin noticias")}</h2>
         <p>${g ? `${esc(g.where ? g.where + ". " : "")}${plural(g.items.length, "noticia", "noticias")}, ${periodText()}` : "No quedan noticias con estos filtros."}</p>
         ${g ? splitBar(g.sectors) : ""}`;
-      body.innerHTML = g ? newsList(g.items) : "";
+      body.innerHTML = g ? projectList(g.items) : "";
     } else if (v.type === "company") {
       const items = state.items.filter((it) => passes(it));
       const sectors = {};
       items.forEach((it) => it.sectors.forEach((s) => { sectors[s] = (sectors[s] || 0) + 1; }));
       head.innerHTML = `<button type="button" class="back" id="back">Volver al ranking</button>
         <h2>${esc(v.name)}</h2>
-        <p>${plural(items.length, "noticia", "noticias")}, ${periodText()}. El mapa muestra solo sus proyectos.</p>
+        <p>${contractorRole(v.name) ? "🏗️ Contratista (segundo anillo). " : ""}${plural(items.length, "noticia", "noticias")}, ${periodText()}. El mapa muestra solo sus proyectos.</p>
         ${splitBar(sectors)}`;
-      body.innerHTML = newsList(items);
+      body.innerHTML = contactCard(v.name, contractorRole(v.name) ? "contratista" : "dueño", true) + projectList(items);
     } else {
       const lvl = LEVELS.find((l) => l.id === state.level);
-      head.innerHTML = `<h2>Dónde hay más obras</h2>
-        <p>${esc(periodText().replace(/^./, (c) => c.toUpperCase()))}. Hacé clic en una zona para ver sus noticias.</p>
+      head.innerHTML = `<h2>${v.tab === "novedades" ? "Novedades" : "Dónde hay más obras"}</h2>
+        <p>${v.tab === "novedades" ? "Proyectos con noticias de las últimas 48 horas." : esc(periodText().replace(/^./, (c) => c.toUpperCase())) + ". Hacé clic en una zona para ver sus proyectos."}</p>
         <div class="tabs" role="tablist">
+          <button type="button" role="tab" data-tab="novedades" aria-selected="${v.tab === "novedades"}">🆕 Novedades</button>
           <button type="button" role="tab" data-tab="zonas" aria-selected="${v.tab === "zonas"}">${esc(lvl.label)}</button>
           <button type="button" role="tab" data-tab="empresas" aria-selected="${v.tab === "empresas"}">Empresas</button>
         </div>`;
       head.querySelectorAll("[data-tab]").forEach((b) => b.addEventListener("click", () => { state.view.tab = b.dataset.tab; renderDrawer(); }));
-      body.innerHTML = v.tab === "zonas" ? zoneRanking() : companyRanking();
+      body.innerHTML = v.tab === "novedades" ? newsFeed() : v.tab === "zonas" ? zoneRanking() : companyRanking();
       body.querySelectorAll("[data-zone]").forEach((b) => b.addEventListener("click", () => openZone(state.level, b.dataset.zone, true)));
       body.querySelectorAll("[data-company]").forEach((b) => b.addEventListener("click", () => openCompany(b.dataset.company)));
     }
+    body.querySelectorAll(".proj [data-company]").forEach((b) => b.addEventListener("click", (e) => { e.preventDefault(); openCompany(b.dataset.company); }));
     const back = $("back");
     if (back) back.addEventListener("click", closeDetail);
     body.scrollTop = 0;
@@ -576,7 +719,7 @@
     for (const it of state.items) {
       if (!it.sectors.some((s) => state.sectors.has(s))) continue;
       if (state.period && daysAgo(it.date) > state.period) continue;
-      for (const c of it.companies) {
+      for (const c of [...it.companies, ...contractorsOf(it)]) {
         if (!agg.has(c)) agg.set(c, { name: c, n: 0, sectors: {}, places: {}, rigi: 0 });
         const g = agg.get(c);
         g.n += 1;
@@ -592,13 +735,13 @@
       const places = Object.entries(g.places).sort((a, b) => b[1] - a[1]).slice(0, 3).map((e) => e[0]).join(", ");
       const sub = (g.rigi ? `${RIGI_EMOJI} ${g.rigi} con RIGI. ` : "") + places;
       return `<li><button type="button" data-company="${esc(g.name)}">
-        <span class="name">${esc(g.name)} <span class="emo">${sectorEmojis(g.sectors)}</span></span><span class="n">${fmtNum(g.n)}</span>
+        <span class="name">${contractorRole(g.name) ? "🏗️ " : ""}${esc(g.name)} <span class="emo">${sectorEmojis(g.sectors)}${hasContact(g.name) ? " 📇" : ""}</span></span><span class="n">${fmtNum(g.n)}</span>
         <span class="sub">${esc(sub)}</span>${splitBar(g.sectors)}</button></li>`;
     }).join("")}</ol>`;
   }
 
   function openZone(level, key, fly) {
-    state.view = { type: "zone", level, key };
+    state.view = { type: "zone", level, key, fromTab: state.view.tab || state.view.fromTab };
     renderDrawer();
     const g = state.groups[level].find((x) => x.key === key);
     if (fly && g && map) {
@@ -609,13 +752,13 @@
 
   function openCompany(name) {
     state.company = name;
-    state.view = { type: "company", name };
+    state.view = { type: "company", name, fromTab: state.view.tab || state.view.fromTab };
     update();
   }
 
   function closeDetail() {
     const wasCompany = state.view.type === "company";
-    state.view = { type: "ranking", tab: wasCompany ? "empresas" : "zonas" };
+    state.view = { type: "ranking", tab: state.view.fromTab || (wasCompany ? "empresas" : "zonas") };
     if (wasCompany) { state.company = null; update(); } else renderDrawer();
   }
 
@@ -639,12 +782,14 @@
   }
 
   async function loadData() {
-    const [news, places, paises, provincias] = await Promise.allSettled([
+    const [news, places, paises, provincias, contacts] = await Promise.allSettled([
       getJSON("data/news.json"),
       getJSON("data/lugares.json"),
       getJSON("data/paises.geojson"),
       getJSON("data/provincias.geojson"),
+      getJSON("data/contactos.json"),
     ]);
+    if (contacts.status === "fulfilled") state.contacts = contacts.value;
     if (news.status === "fulfilled") {
       state.items = news.value.items || [];
       state.updated = news.value.updated;
