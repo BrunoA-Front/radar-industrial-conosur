@@ -26,6 +26,8 @@ QUERIES_ES = [
 # Solo Argentina: Régimen de Incentivo para Grandes Inversiones
 QUERIES_AR_EXTRA = [
     'RIGI (aprobó OR aprobación OR adhesión OR presentó OR proyecto)',
+    # medios especializados cuyo RSS no está disponible: se leen vía Google News
+    '(site:energiaestrategica.com OR site:panorama-minero.com OR site:rionegro.com.ar/energia) (parque OR planta OR obra OR proyecto OR ampliación)',
 ]
 
 QUERIES_PT = [
@@ -39,13 +41,8 @@ QUERIES_PT = [
 # saltea y lo informa en docs/data/meta.json.
 SECTOR_FEEDS = [
     {"name": "EconoJournal", "url": "https://econojournal.com.ar/feed/", "country": "AR"},
-    {"name": "Energía Estratégica", "url": "https://www.energiaestrategica.com/feed/", "country": "AR"},
-    {"name": "Surtidores", "url": "https://www.surtidores.com.ar/feed/", "country": "AR"},
-    {"name": "Panorama Minero", "url": "https://www.panorama-minero.com/feed/", "country": "AR"},
     {"name": "Minería Chilena", "url": "https://www.mch.cl/feed/", "country": "CL"},
-    {"name": "Reporte Minero", "url": "https://www.reporteminero.cl/feed/", "country": "CL"},
     {"name": "epbr", "url": "https://epbr.com.br/feed/", "country": "BR"},
-    {"name": "Notícias de Mineração Brasil", "url": "https://www.noticiasdemineracao.com/feed/", "country": "BR"},
 ]
 
 # Ventana de búsqueda de Google News en cada corrida diaria (con solapamiento).

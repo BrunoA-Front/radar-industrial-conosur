@@ -24,7 +24,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 
 import config  # noqa: E402
 from classify import classify, find_companies, normalize  # noqa: E402
-from gazetteer import resolve_location  # noqa: E402
+from gazetteer import COUNTRY_CENTROIDS, PLACES, resolve_location  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = ROOT / "docs" / "data"
@@ -194,6 +194,7 @@ def save(items, source_report, started):
         json.dumps({"updated": now, "count": len(items), "items": items}, ensure_ascii=False, separators=(",", ":")),
         encoding="utf-8",
     )
+    (DATA_DIR / "lugares.json").write_text(json.dumps(places_index(), ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
     META_FILE.write_text(
         json.dumps({
             "updated": now,
@@ -203,6 +204,13 @@ def save(items, source_report, started):
         }, ensure_ascii=False, indent=1),
         encoding="utf-8",
     )
+
+
+def places_index():
+    """Coordenadas de países y provincias, para ubicar los puntos de cada nivel del mapa."""
+    provinces = {f"{p.country}|{p.name}": [p.lat, p.lon] for p in PLACES if p.kind == "prov"}
+    countries = {code: {"name": name, "lat": lat, "lon": lon} for code, (name, lat, lon, _) in COUNTRY_CENTROIDS.items()}
+    return {"countries": countries, "provinces": provinces}
 
 
 def main():

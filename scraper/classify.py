@@ -256,6 +256,14 @@ COMPANIES = {
     "SLB": ["SLB", "Schlumberger"],
     "Baker Hughes": ["Baker Hughes"],
     "Excelerate": ["Excelerate"],
+    "Camuzzi": ["Camuzzi"],
+    "Capstone Copper": ["Capstone Copper", "Capstone"],
+    "Kinross": ["Kinross"],
+    "Teck": ["Teck"],
+    "Cammesa": ["CAMMESA"],
+    "Enarsa": ["ENARSA", "Energia Argentina"],
+    "Distrigas / Naturgy": ["Naturgy"],
+    "Gas Natural Ban": ["Metrogas"],
 }
 
 _COMPANY_RX = []
@@ -306,13 +314,14 @@ _MINING = ["Codelco", "SQM", "Albemarle", "Rio Tinto", "Glencore", "BHP", "Anglo
            "Antofagasta Minerals", "Lundin Mining", "Vicuña", "Barrick", "Newmont", "McEwen Copper",
            "First Quantum", "Eramet", "Ganfeng", "POSCO", "Tibet Summit", "Zijin", "Lithium Argentina",
            "Galan Lithium", "Rincon Lithium", "Pan American Silver", "Cerro Moro / AngloGold",
-           "Yamana / Agua Rica", "Minas Argentinas", "Fortescue", "Vale", "CSN", "Sigma Lithium", "CBMM"]
+           "Yamana / Agua Rica", "Minas Argentinas", "Fortescue", "Vale", "CSN", "Sigma Lithium", "CBMM",
+           "Capstone Copper", "Kinross", "Teck"]
 _OILGAS = ["YPF", "Pan American Energy", "Vista Energy", "Tecpetrol", "TGS", "TGN", "Pluspetrol", "CGC",
            "Phoenix Global Resources", "Chevron", "Shell", "TotalEnergies", "ExxonMobil", "Equinor",
            "Harbour Energy", "Oldelval", "VMOS", "Southern Energy", "Golar LNG", "Raízen", "Trafigura",
            "Petrobras", "YPFB", "ENAP", "ANCAP", "Petropar", "PRIO", "Braskem", "Profertil", "Excelerate",
-           "Halliburton", "SLB", "Baker Hughes", "Saipem"]
+           "Halliburton", "SLB", "Baker Hughes", "Saipem", "Camuzzi", "Enarsa", "Distrigas / Naturgy", "Gas Natural Ban"]
 _ENERGY = ["Central Puerto", "Genneia", "AES", "Enel", "Engie", "Edenor", "Transener", "YPF Luz",
            "MSU Green Energy", "360 Energy", "Colbún", "Eletrobras", "Itaipú Binacional", "Yacyretá (EBY)",
-           "ANDE", "UTE", "HIF Global", "Fortescue / Hidrógeno"]
+           "ANDE", "UTE", "HIF Global", "Fortescue / Hidrógeno", "Cammesa"]
 COMPANY_SECTOR = {**{c: "mineria" for c in _MINING}, **{c: "oilgas" for c in _OILGAS}, **{c: "energia" for c in _ENERGY}}
