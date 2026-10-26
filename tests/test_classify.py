@@ -6,7 +6,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scraper"))
 
-from classify import classify, find_companies  # noqa: E402
+from classify import classify, find_companies, find_parties  # noqa: E402
+from proyectos import find_project  # noqa: E402
 from collect import process, strip_source_suffix  # noqa: E402
 from gazetteer import resolve_location  # noqa: E402
 
@@ -85,6 +86,27 @@ class TestEmpresas(unittest.TestCase):
 
     def test_heuristica(self):
         self.assertEqual(find_companies("La empresa Andes Power construirá un parque solar"), ["Andes Power"])
+
+
+class TestSegundoAnillo(unittest.TestCase):
+    def test_contratista_conocido(self):
+        self.assertEqual(find_parties("YPF adjudicó a SACDE la construcción de la planta en Añelo"), (["YPF"], ["SACDE"]))
+
+    def test_contratista_por_frase(self):
+        self.assertEqual(find_parties("La obra será ejecutada por la empresa Petrotec del Sur")[1], ["Petrotec del Sur"])
+
+    def test_ute_no_es_la_electrica_uruguaya(self):
+        owners, contractors = find_parties("TGS licitó el gasoducto; la UTE Techint-SACDE ejecutará la obra")
+        self.assertNotIn("UTE", owners)
+        self.assertIn("SACDE", contractors)
+
+
+class TestProyectos(unittest.TestCase):
+    def test_nombre(self):
+        self.assertEqual(find_project("Avanza el oleoducto Vaca Muerta Oil Sur hacia Punta Colorada"), "VMOS (Vaca Muerta Oil Sur)")
+
+    def test_ciudad_no_es_proyecto(self):
+        self.assertIsNone(find_project("Nueva planta en Perito Moreno, Santa Cruz"))
 
 
 class TestProceso(unittest.TestCase):
