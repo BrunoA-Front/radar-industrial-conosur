@@ -44,6 +44,12 @@ jobs:
           PYTHONUNBUFFERED: "1"
         run: python scraper/collect.py --days "${{ github.event.inputs.days || '3' }}"
 
+      - name: Buscar contactos públicos de empresas
+        continue-on-error: true
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: python scraper/contacts.py --limit 140
+
       - name: Guardar datos
         run: |
           git config user.name "radar-bot"
