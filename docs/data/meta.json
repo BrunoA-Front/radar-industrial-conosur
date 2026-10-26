@@ -1,0 +1,276 @@
+{
+ "updated": "2026-10-26T22:21:38Z",
+ "duration_s": 165.8,
+ "total_items": 175,
+ "sources": [
+  {
+   "name": "Google News Argentina #1",
+   "country": "AR",
+   "kind": "google",
+   "ok": true,
+   "fetched": 52,
+   "kept": 15
+  },
+  {
+   "name": "Google News Argentina #2",
+   "country": "AR",
+   "kind": "google",
+   "ok": true,
+   "fetched": 50,
+   "kept": 14
+  },
+  {
+   "name": "Google News Argentina #3",
+   "country": "AR",
+   "kind": "google",
+   "ok": true,
+   "fetched": 100,
+   "kept": 27
+  },
+  {
+   "name": "Google News Argentina #4",
+   "country": "AR",
+   "kind": "google",
+   "ok": true,
+   "fetched": 84,
+   "kept": 17
+  },
+  {
+   "name": "Google News Argentina #5",
+   "country": "AR",
+   "kind": "google",
+   "ok": true,
+   "fetched": 100,
+   "kept": 40
+  },
+  {
+   "name": "Google News Chile #1",
+   "country": "CL",
+   "kind": "google",
+   "ok": true,
+   "fetched": 97,
+   "kept": 13
+  },
+  {
+   "name": "Google News Chile #2",
+   "country": "CL",
+   "kind": "google",
+   "ok": true,
+   "fetched": 100,
+   "kept": 9
+  },
+  {
+   "name": "Google News Chile #3",
+   "country": "CL",
+   "kind": "google",
+   "ok": true,
+   "fetched": 100,
+   "kept": 2
+  },
+  {
+   "name": "Google News Chile #4",
+   "country": "CL",
+   "kind": "google",
+   "ok": true,
+   "fetched": 84,
+   "kept": 1
+  },
+  {
+   "name": "Google News Bolivia #1",
+   "country": "BO",
+   "kind": "google",
+   "ok": true,
+   "fetched": 75,
+   "kept": 0
+  },
+  {
+   "name": "Google News Bolivia #2",
+   "country": "BO",
+   "kind": "google",
+   "ok": true,
+   "fetched": 100,
+   "kept": 1
+  },
+  {
+   "name": "Google News Bolivia #3",
+   "country": "BO",
+   "kind": "google",
+   "ok": true,
+   "fetched": 100,
+   "kept": 0
+  },
+  {
+   "name": "Google News Bolivia #4",
+   "country": "BO",
+   "kind": "google",
+   "ok": true,
+   "fetched": 86,
+   "kept": 0
+  },
+  {
+   "name": "Google News Paraguay #1",
+   "country": "PY",
+   "kind": "google",
+   "ok": true,
+   "fetched": 75,
+   "kept": 0
+  },
+  {
+   "name": "Google News Paraguay #2",
+   "country": "PY",
+   "kind": "google",
+   "ok": true,
+   "fetched": 100,
+   "kept": 0
+  },
+  {
+   "name": "Google News Paraguay #3",
+   "country": "PY",
+   "kind": "google",
+   "ok": true,
+   "fetched": 100,
+   "kept": 0
+  },
+  {
+   "name": "Google News Paraguay #4",
+   "country": "PY",
+   "kind": "google",
+   "ok": true,
+   "fetched": 86,
+   "kept": 0
+  },
+  {
+   "name": "Google News Uruguay #1",
+   "country": "UY",
+   "kind": "google",
+   "ok": true,
+   "fetched": 75,
+   "kept": 0
+  },
+  {
+   "name": "Google News Uruguay #2",
+   "country": "UY",
+   "kind": "google",
+   "ok": true,
+   "fetched": 100,
+   "kept": 5
+  },
+  {
+   "name": "Google News Uruguay #3",
+   "country": "UY",
+   "kind": "google",
+   "ok": true,
+   "fetched": 100,
+   "kept": 0
+  },
+  {
+   "name": "Google News Uruguay #4",
+   "country": "UY",
+   "kind": "google",
+   "ok": true,
+   "fetched": 86,
+   "kept": 0
+  },
+  {
+   "name": "Google News Brasil #1",
+   "country": "BR",
+   "kind": "google",
+   "ok": true,
+   "fetched": 74,
+   "kept": 6
+  },
+  {
+   "name": "Google News Brasil #2",
+   "country": "BR",
+   "kind": "google",
+   "ok": true,
+   "fetched": 59,
+   "kept": 21
+  },
+  {
+   "name": "Google News Brasil #3",
+   "country": "BR",
+   "kind": "google",
+   "ok": true,
+   "fetched": 33,
+   "kept": 3
+  },
+  {
+   "name": "Google News Brasil #4",
+   "country": "BR",
+   "kind": "google",
+   "ok": true,
+   "fetched": 67,
+   "kept": 8
+  },
+  {
+   "name": "EconoJournal",
+   "country": "AR",
+   "kind": "sector",
+   "ok": true,
+   "fetched": 10,
+   "kept": 2
+  },
+  {
+   "name": "Energía Estratégica",
+   "country": "AR",
+   "kind": "sector",
+   "ok": false,
+   "fetched": 0,
+   "kept": 0,
+   "error": "HTTPError: HTTP Error 404: Not Found"
+  },
+  {
+   "name": "Surtidores",
+   "country": "AR",
+   "kind": "sector",
+   "ok": true,
+   "fetched": 10,
+   "kept": 0
+  },
+  {
+   "name": "Panorama Minero",
+   "country": "AR",
+   "kind": "sector",
+   "ok": false,
+   "fetched": 0,
+   "kept": 0,
+   "error": "HTTPError: HTTP Error 404: Not Found"
+  },
+  {
+   "name": "Minería Chilena",
+   "country": "CL",
+   "kind": "sector",
+   "ok": true,
+   "fetched": 10,
+   "kept": 1
+  },
+  {
+   "name": "Reporte Minero",
+   "country": "CL",
+   "kind": "sector",
+   "ok": false,
+   "fetched": 0,
+   "kept": 0,
+   "error": "ParseError: syntax error: line 1, column 3"
+  },
+  {
+   "name": "epbr",
+   "country": "BR",
+   "kind": "sector",
+   "ok": false,
+   "fetched": 0,
+   "kept": 0,
+   "error": "HTTPError: HTTP Error 522: <none>"
+  },
+  {
+   "name": "Notícias de Mineração Brasil",
+   "country": "BR",
+   "kind": "sector",
+   "ok": false,
+   "fetched": 0,
+   "kept": 0,
+   "error": "HTTPError: HTTP Error 404: Not Found"
+  }
+ ]
+}
