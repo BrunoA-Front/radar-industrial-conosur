@@ -41,6 +41,7 @@ QUERIES_PT = [
 # saltea y lo informa en docs/data/meta.json.
 SECTOR_FEEDS = [
     {"name": "EconoJournal", "url": "https://econojournal.com.ar/feed/", "country": "AR"},
+    {"name": "Data Energía", "url": "https://dataenergia.ar/feed", "country": "AR"},
     {"name": "Minería Chilena", "url": "https://www.mch.cl/feed/", "country": "CL"},
     {"name": "epbr", "url": "https://epbr.com.br/feed/", "country": "BR"},
 ]
