@@ -36,6 +36,9 @@ jobs:
       - name: Probar clasificador
         run: python -m unittest discover tests -v
 
+      - name: Generar mapas base (solo la primera vez)
+        run: python scraper/build_geo.py --if-missing
+
       - name: Recolectar noticias
         env:
           PYTHONUNBUFFERED: "1"
