@@ -23,7 +23,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 
 import config  # noqa: E402
-from classify import classify, find_companies, normalize  # noqa: E402
+from classify import classify, find_parties, normalize  # noqa: E402
+from proyectos import find_project  # noqa: E402
 from gazetteer import COUNTRY_CENTROIDS, PLACES, resolve_location  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -153,7 +154,7 @@ def process(raw, feed_country, feed_name):
         summary = ""
     summary = summary[:600]
 
-    companies = find_companies(title, summary)
+    companies, contractors = find_parties(title, summary)
     tags = classify(title, summary, companies)
     if not tags:
         return None
@@ -173,6 +174,8 @@ def process(raw, feed_country, feed_name):
         "signals": tags["signals"],
         "score": tags["score"],
         "companies": companies,
+        "contractors": contractors,
+        "project": find_project(title, summary),
     }
 
 
@@ -234,6 +237,10 @@ def main():
         sources = build_sources(args.days)
 
     existing = {it["id"]: it for it in load_existing()}
+    # Las mejoras del diccionario de empresas y proyectos se aplican también a lo ya guardado
+    for it in existing.values():
+        it["companies"], it["contractors"] = find_parties(it["title"], it.get("summary", ""))
+        it["project"] = find_project(it["title"], it.get("summary", ""))
     before = len(existing)
     report = []
     for src in sources:

@@ -11,6 +11,7 @@ Todo se compara sin tildes y en minúscula. Para afinar resultados, editá las l
 
 import re
 
+from empresas import CONTRATISTAS, YA_NO_DUENOS
 from gazetteer import strip_accents
 
 SECTORS = {
@@ -200,7 +201,8 @@ COMPANIES = {
     "Itaipú Binacional": ["Itaipu Binacional"],
     "Yacyretá (EBY)": ["Entidad Binacional Yacyreta", "EBY"],
     "ANDE": ["ANDE"],
-    "UTE": ["UTE"],
+    # UTE de Uruguay; "la UTE Techint-SACDE" (unión transitoria) no cuenta
+    "UTE": ["(?<!la )UTE(?![ \\-]+[A-Z])"],
     "Codelco": ["Codelco"],
     "SQM": ["SQM"],
     "Albemarle": ["Albemarle"],
@@ -266,6 +268,9 @@ COMPANIES = {
     "Gas Natural Ban": ["Metrogas"],
 }
 
+for _gone in YA_NO_DUENOS:
+    COMPANIES.pop(_gone, None)
+
 _COMPANY_RX = []
 for _canonical, _variants in COMPANIES.items():
     _vs = sorted({strip_accents(v) for v in _variants}, key=len, reverse=True)
@@ -273,17 +278,68 @@ for _canonical, _variants in COMPANIES.items():
     _parts = [v if "(?" in v else re.escape(v) for v in _vs]
     _COMPANY_RX.append((_canonical, re.compile(r"(?<![\w])(?:" + "|".join(_parts) + r")(?![\w])")))
 
+_CONTRACTOR_RX = []
+for _canonical, _variants in CONTRATISTAS.items():
+    _vs = sorted({strip_accents(v) for v in _variants}, key=len, reverse=True)
+    _CONTRACTOR_RX.append((_canonical, re.compile(r"(?<![\w])(?:" + "|".join(re.escape(v) for v in _vs) + r")(?![\w])")))
+
+# Frases que nombran a quien ejecuta la obra: "adjudicó a X", "a cargo de la constructora X"...
+_NAME = r"((?:[A-Z][A-Za-z0-9&\-\.]+)(?:\s+(?:[A-Z][A-Za-z0-9&\-\.]+|del|de|da|do|y|e|S\.A\.)){0,4})"
+_CONTRACTOR_PHRASES = re.compile(
+    r"(?:adjudic\w*(?:\s+\w+){0,4}?\s+a\s+(?:la\s+)?(?:empresa\s+|firma\s+|constructora\s+|UTE\s+|contratista\s+)?"
+    r"|a\s+cargo\s+de\s+(?:la\s+)?(?:empresa\s+|firma\s+|constructora\s+|UTE\s+|contratista\s+)?"
+    r"|(?:la\s+)?(?:constructora|contratista|UTE|EPCista)\s+"
+    r"|contrat(?:o|ou)\s+a\s+(?:la\s+)?(?:empresa\s+|firma\s+)?"
+    r"|consorcio\s+|consorcio\s+"
+    r"|ejecutad[ao]\s+por\s+(?:la\s+)?(?:empresa\s+|firma\s+)?"
+    r"|executad[ao]\s+pela\s+)" + _NAME
+)
+
 # Captura nombres propios después de "la empresa X", "a mineradora X"...
 _GENERIC_RX = re.compile(
     r"(?:empresa|compania|firma|minera|petrolera|energetica|operadora|mineradora|petroleira|companhia|grupo)\s+"
-    r"((?:[A-Z][A-Za-z0-9&\-\.]+)(?:\s+(?:[A-Z][A-Za-z0-9&\-\.]+|de|del|y|do|da)){0,3})"
+    r"((?:[A-Z][A-Za-z0-9&\-\.]+)(?:\s+(?:[A-Z][A-Za-z0-9&\-\.]+|del|de|da|do|y)){0,3})"
 )
 _GENERIC_STOP = {
+    "Gobierno", "Provincia", "Municipio", "Municipalidad", "Ministerio", "Secretaria", "Nacion",
     "El", "La", "Los", "Las", "Gobierno", "Estado", "Provincia", "Nacion", "Ministerio",
     "Secretaria", "Argentina", "Chile", "Brasil", "Bolivia", "Paraguay", "Uruguay", "Este", "Esta",
     "Su", "Sus", "Una", "Un", "Que", "Para", "Por", "En", "Con", "Federal", "Estatal", "Nacional",
     "Provincial", "Publica", "Privada", "Brasileira", "Chilena", "Argentina", "Boliviana",
 }
+
+
+def _dedupe(names):
+    seen, out = set(), []
+    for c in names:
+        if c not in seen:
+            seen.add(c)
+            out.append(c)
+    return out
+
+
+def find_contractors(title, summary=""):
+    """Segundo anillo: contratistas conocidos + nombres después de 'adjudicó a', 'a cargo de'..."""
+    text = strip_accents(f"{title} . {summary}")
+    found = [c for c, rx in _CONTRACTOR_RX if rx.search(text)]
+    owners = {c for c, rx in _COMPANY_RX if rx.search(text)}
+    for m in _CONTRACTOR_PHRASES.finditer(text):
+        name = re.sub(r"\s+(de|del|y|e|do|da)$", "", m.group(1).strip(" .")).strip()
+        if not name or name.split()[0] in _GENERIC_STOP or len(name) < 3:
+            continue
+        # si el nombre ya es una empresa conocida, usar su nombre canónico
+        known = next((c for c, rx in _CONTRACTOR_RX + _COMPANY_RX if rx.fullmatch(name) or rx.match(name)), None)
+        name = known or name
+        if name in owners and not known in CONTRATISTAS:
+            continue
+        found.append(name)
+    return _dedupe(found)[:4]
+
+
+def find_parties(title, summary=""):
+    contractors = find_contractors(title, summary)
+    owners = [c for c in find_companies(title, summary) if c not in contractors]
+    return owners, contractors
 
 
 def find_companies(title, summary=""):
@@ -293,10 +349,11 @@ def find_companies(title, summary=""):
         if rx.search(text):
             found.append(canonical)
     if not found:
+        contractors = {c for c, rx in _CONTRACTOR_RX if rx.search(text)}
         for m in _GENERIC_RX.finditer(text):
             name = re.sub(r"\s+(de|del|y|do|da)$", "", m.group(1).strip(" .")).strip()
             first = name.split()[0]
-            if first in _GENERIC_STOP or len(name) < 3:
+            if first in _GENERIC_STOP or len(name) < 3 or any(rx.match(name) for _, rx in _CONTRACTOR_RX):
                 continue
             found.append(name)
             break
