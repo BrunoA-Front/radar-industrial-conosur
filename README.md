@@ -8,11 +8,11 @@ No mide extracción ni producción: mide dónde se están anunciando obras. Entr
 
 ## Qué muestra
 
-- Mapa de calor por ciudad, polo industrial o provincia, con marcadores para hacer clic.
-- Filtros por sector (minería, energía, oil & gas), tipo de señal (RIGI, obra nueva, expansión, inversión) y período.
-- Ranking de zonas (países, provincias, ciudades) con las empresas que más aparecen en cada una.
-- Ranking de empresas, con cuántas notas tienen RIGI y dónde operan.
-- Lista de noticias con enlace a la fuente original.
+- Pantalla de inicio con un radar: al tocar **Iniciar radar** cuenta las noticias del día, la semana y el mes, y después abre el mapa.
+- Mapa 3D de Latinoamérica en bloque, con tres niveles según el zoom: **países**, **provincias** y **ciudades o polos**.
+- Cada punto es una columna: el color indica el rubro (oil & gas, minería, energía) y la altura, la cantidad de noticias.
+- Al pasar el mouse: rubro, cantidad de noticias, empresas y si hay RIGI. Al hacer clic: las noticias de las que sale ese punto, con enlace a la fuente.
+- Filtros por rubro y período, ranking de zonas y de empresas.
 
 ## Cómo funciona
 
@@ -24,6 +24,7 @@ GitHub Actions (todos los días, 06:17 ART)
        ├─ classify.py   → ¿es del sector? ¿anuncia una obra? ¿es solo precios/producción?
        ├─ gazetteer.py  → ¿dónde? (ciudad o polo > provincia, resuelve homónimos por país)
        └─ docs/data/news.json  (se acumulan 400 días)
+  └─ scraper/build_geo.py (solo la primera vez) → mapas base de Natural Earth
   └─ publica docs/ en GitHub Pages
 ```
 
