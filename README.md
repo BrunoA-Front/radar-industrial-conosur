@@ -13,6 +13,9 @@ No mide extracción ni producción: mide dónde se están anunciando obras. Entr
 - Cada punto es una columna: el color indica el rubro (oil & gas, minería, energía) y la altura, la cantidad de noticias.
 - Al pasar el mouse: rubro, cantidad de noticias, empresas y si hay RIGI. Al hacer clic: las noticias de las que sale ese punto, con enlace a la fuente.
 - Filtros por rubro y período, ranking de zonas y de empresas.
+- **Novedades:** proyectos con noticias de las últimas 48 horas, marcados NUEVO en el mapa.
+- **Fichas por proyecto:** junta las noticias de una misma obra, con el dueño del proyecto y el **segundo anillo** (quién ejecuta la obra: EPC, constructora o empresa de servicios).
+- **Contactos públicos de empresa:** portal de proveedores, mail de compras o general y teléfono, con la fuente. Los datos salen de la web oficial (`scraper/empresas.py`) o, si no está cargada, de una búsqueda automática en Wikidata marcada "sin verificar". Nunca se guardan mails personales.
 
 ## Cómo funciona
 
@@ -44,6 +47,8 @@ Todo es gratis: sin servidor, sin base de datos y sin APIs pagas. La clasificaci
 | Afinar qué cuenta como obra, sector o nota descartable | `scraper/classify.py` (listas `SECTORS`, `SIGNALS`, `EXCLUDE`) |
 | Sumar empresas al ranking | `scraper/classify.py` (`COMPANIES` y su sector en `COMPANY_SECTOR`) |
 | Sumar ciudades, polos o yacimientos | `scraper/gazetteer.py` (una línea por lugar) |
+| Sumar contratistas o la web oficial de una empresa | `scraper/empresas.py` |
+| Sumar proyectos con nombre propio | `scraper/proyectos.py` |
 | Diseño de la web | `docs/style.css`, `docs/app.js` |
 
 Después de cambiar el clasificador, corré las pruebas:
