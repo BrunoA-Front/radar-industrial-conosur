@@ -1,0 +1,75 @@
+name: Actualizar noticias
+
+on:
+  schedule:
+    - cron: "17 9 * * *"   # todos los días 06:17 hora de Argentina
+  workflow_dispatch:
+    inputs:
+      days:
+        description: "Días hacia atrás a buscar (30 para una carga inicial)"
+        required: false
+        default: "3"
+  push:
+    branches: [main]
+    paths: ["docs/**"]
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: radar-pages
+  cancel-in-progress: false
+
+jobs:
+  recolectar:
+    if: github.event_name != 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Probar clasificador
+        run: python -m unittest discover tests -v
+
+      - name: Recolectar noticias
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: python scraper/collect.py --days "${{ github.event.inputs.days || '3' }}"
+
+      - name: Guardar datos
+        run: |
+          git config user.name "radar-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/data
+          if git diff --cached --quiet; then
+            echo "Sin cambios"
+          else
+            git commit -m "Datos actualizados $(date -u +%Y-%m-%d)"
+            git push
+          fi
+
+  publicar:
+    needs: recolectar
+    if: always() && (needs.recolectar.result == 'success' || needs.recolectar.result == 'skipped')
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs
+
+      - id: deploy
+        uses: actions/deploy-pages@v4
