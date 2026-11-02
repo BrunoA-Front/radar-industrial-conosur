@@ -26,19 +26,19 @@
  "AESA": {
   "error": "URLError",
   "metodo": "web oficial",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-02",
   "web": "https://aesa.com.ar"
  },
  "ANCAP": {
   "error": "URLError",
   "metodo": "web oficial",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-02",
   "web": "https://ancap.com.uy"
  },
  "ANDE": {
   "error": "URLError",
   "metodo": "web oficial",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-02",
   "web": "https://ande.gov.py"
  },
  "Albemarle": {
@@ -118,13 +118,13 @@
  "Anglo American": {
   "error": "HTTPError",
   "metodo": "web oficial",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-02",
   "web": "https://angloamerican.com"
  },
  "Antofagasta Minerals": {
-  "error": "URLError",
+  "error": "HTTPError",
   "metodo": "web oficial",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-02",
   "web": "https://aminerals.cl"
  },
  "Arauco": {
@@ -134,7 +134,7 @@
   ],
   "metodo": "web oficial",
   "portal": null,
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-02",
   "telefonos": [],
   "web": "https://na.arauco.com/"
  },
@@ -159,7 +159,7 @@
  "BHP": {
   "error": "HTTPError",
   "metodo": "web oficial",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-02",
   "web": "https://bhp.com"
  },
  "Baker Hughes": {
@@ -225,7 +225,7 @@
  "Benito Roggio": {
   "error": "URLError",
   "metodo": "web oficial",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-02",
   "web": "https://bfroggio.com.ar"
  },
  "Besalco": {
@@ -247,7 +247,7 @@
  "Braskem": {
   "error": "URLError",
   "metodo": "web oficial",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-02",
   "web": "https://braskem.com"
  },
  "CBMM": {
@@ -291,7 +291,7 @@
  "CSN": {
   "error": "URLError",
   "metodo": "web oficial",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-02",
   "web": "https://csn.com.br"
  },
  "Calfrac": {
@@ -402,21 +402,48 @@
   "web": "https://codelco.com"
  },
  "Colbún": {
-  "error": "TimeoutError",
+  "emails": [
+   {
+    "email": "cplasser@colbun.cl",
+    "tipo": "otro"
+   },
+   {
+    "email": "furgelles@colbun.cl",
+    "tipo": "otro"
+   },
+   {
+    "email": "izaldivar@colbun.cl",
+    "tipo": "otro"
+   },
+   {
+    "email": "serrazuriz@colbun.cl",
+    "tipo": "otro"
+   }
+  ],
+  "fuentes": [
+   "https://colbun.cl",
+   "https://colbun.cl/corporativo/inversionistas/investor-contact",
+   "https://colbun.cl/corporativo/proveedores",
+   "https://colbun.cl/corporativo/proveedores/nuestro-objetivo"
+  ],
   "metodo": "web oficial",
-  "revisado": "2026-10-26",
+  "portal": "https://colbun.cl/corporativo/proveedores",
+  "revisado": "2026-11-02",
+  "telefonos": [
+   "+56 2 2460 4000"
+  ],
   "web": "https://colbun.cl"
  },
  "Dycasa": {
   "error": "URLError",
   "metodo": "web oficial",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-02",
   "web": "https://dycasa.com"
  },
  "ENAP": {
   "error": "URLError",
   "metodo": "web oficial",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-02",
   "web": "https://enap.cl"
  },
  "Edenor": {
@@ -448,9 +475,20 @@
   ],
   "metodo": "web oficial",
   "portal": null,
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-02",
   "telefonos": [],
   "web": "https://eletrobras.com/Paginas/default.aspx"
+ },
+ "Enel": {
+  "emails": [],
+  "fuentes": [
+   "https://www.enel.com/"
+  ],
+  "metodo": "wikidata",
+  "portal": "https://globalprocurement.enel.com/en.html",
+  "revisado": "2026-11-02",
+  "telefonos": [],
+  "web": "https://www.enel.com/"
  },
  "Eramet": {
   "emails": [
@@ -473,7 +511,7 @@
  "Esuco": {
   "error": "URLError",
   "metodo": "web oficial",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-02",
   "web": "https://esuco.com.ar"
  },
  "Fastpack": {
@@ -528,13 +566,13 @@
  "Ganfeng": {
   "error": "URLError",
   "metodo": "web oficial",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-02",
   "web": "https://ganfenglithium.com"
  },
  "Genneia": {
   "error": "URLError",
   "metodo": "web oficial",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-02",
   "web": "https://genneia.com.ar"
  },
  "Glencore": {
@@ -574,7 +612,7 @@
  "Halliburton": {
   "error": "URLError",
   "metodo": "web oficial",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-02",
   "web": "https://halliburton.com"
  },
  "Harbour Energy": {
@@ -627,7 +665,7 @@
  },
  "Industrias Juan F. Secco": {
   "metodo": "sin datos",
-  "revisado": "2026-10-26"
+  "revisado": "2026-11-02"
  },
  "José Cartellone": {
   "emails": [
@@ -658,7 +696,7 @@
  "Kinross": {
   "error": "URLError",
   "metodo": "web oficial",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-02",
   "web": "https://kinross.com"
  },
  "Lithium Argentina": {
@@ -710,7 +748,7 @@
   ],
   "metodo": "web oficial",
   "portal": null,
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-02",
   "telefonos": [],
   "web": "https://mcewencopper.com"
  },
@@ -769,26 +807,26 @@
   ],
   "metodo": "web oficial",
   "portal": null,
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-02",
   "telefonos": [],
   "web": "https://www.nordex-online.com/en/"
  },
  "Oldelval": {
   "error": "URLError",
   "metodo": "web oficial",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-02",
   "web": "https://oldelval.com"
  },
  "POSCO": {
   "emails": [],
   "fuentes": [
-   "http://www.posco.com"
+   "https://www.posco.com:443/"
   ],
   "metodo": "wikidata",
   "portal": null,
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-02",
   "telefonos": [],
-  "web": "http://www.posco.com"
+  "web": "https://www.posco.com:443/"
  },
  "Pampa Energía": {
   "emails": [
@@ -820,7 +858,7 @@
  "Pan American Energy": {
   "error": "URLError",
   "metodo": "web oficial",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-02",
   "web": "https://pan-energy.com"
  },
  "Pan American Silver": {
@@ -873,19 +911,19 @@
  "Petropar": {
   "error": "URLError",
   "metodo": "web oficial",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-02",
   "web": "https://petropar.gov.py"
  },
  "Pluspetrol": {
   "error": "URLError",
   "metodo": "web oficial",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-02",
   "web": "https://pluspetrol.net"
  },
  "Profertil": {
   "error": "URLError",
   "metodo": "web oficial",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-02",
   "web": "https://profertil.com.ar"
  },
  "Rio Tinto": {
@@ -908,7 +946,7 @@
  "SACDE": {
   "error": "URLError",
   "metodo": "web oficial",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-02",
   "web": "https://sacde.com.ar"
  },
  "SLB": {
@@ -965,7 +1003,7 @@
  "SalfaCorp": {
   "error": "HTTPError",
   "metodo": "web oficial",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-02",
   "web": "https://salfacorp.com"
  },
  "Shell": {
@@ -975,7 +1013,7 @@
   ],
   "metodo": "web oficial",
   "portal": null,
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-02",
   "telefonos": [],
   "web": "https://www.shell.com.ar/"
  },
@@ -1015,17 +1053,17 @@
  "Sigdo Koppers": {
   "error": "URLError",
   "metodo": "web oficial",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-02",
   "web": "https://sigdokoppers.cl"
  },
  "Sigma Lithium": {
   "metodo": "sin datos",
-  "revisado": "2026-10-26"
+  "revisado": "2026-11-02"
  },
  "Supercemento": {
   "error": "URLError",
   "metodo": "web oficial",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-02",
   "web": "https://supercemento.com.ar"
  },
  "Suzano": {
@@ -1065,7 +1103,7 @@
   ],
   "metodo": "web oficial",
   "portal": null,
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-02",
   "telefonos": [],
   "web": "https://tgn.com.ar"
  },
@@ -1095,7 +1133,7 @@
  "Techint Ingeniería y Construcción": {
   "error": "URLError",
   "metodo": "web oficial",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-02",
   "web": "https://techint-ingenieria.com"
  },
  "Teck": {
@@ -1135,7 +1173,7 @@
  "Tecpetrol": {
   "error": "URLError",
   "metodo": "web oficial",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-02",
   "web": "https://tecpetrol.com"
  },
  "Tenaris": {
@@ -1162,7 +1200,7 @@
   ],
   "metodo": "web oficial",
   "portal": null,
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-02",
   "telefonos": [],
   "web": "https://us.ternium.com/en"
  },
@@ -1173,7 +1211,7 @@
   ],
   "metodo": "web oficial",
   "portal": null,
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-02",
   "telefonos": [],
   "web": "https://totalenergies.com.ar/es"
  },
@@ -1221,14 +1259,30 @@
   "web": "https://www.upm.uy/"
  },
  "UTE": {
-  "error": "HTTPError",
+  "emails": [
+   {
+    "email": "atteacreedores@ute.com.uy",
+    "tipo": "otro"
+   },
+   {
+    "email": "facturapapel@ute.com.uy",
+    "tipo": "otro"
+   }
+  ],
+  "fuentes": [
+   "https://ute.com.uy",
+   "https://ute.com.uy/proveedores/informacion/informacion-de-garantias",
+   "https://ute.com.uy/proveedores/informacion/normativa-para-proveedores-sobre-facturas-notas-de-credito-y-resguardos"
+  ],
   "metodo": "web oficial",
-  "revisado": "2026-10-26",
+  "portal": "https://ute.com.uy/proveedores/informacion/comunicados-proveedores",
+  "revisado": "2026-11-02",
+  "telefonos": [],
   "web": "https://ute.com.uy"
  },
  "VMOS": {
   "metodo": "sin datos",
-  "revisado": "2026-10-26"
+  "revisado": "2026-11-02"
  },
  "Vale": {
   "emails": [
@@ -1382,11 +1436,11 @@
  "YPFB": {
   "error": "URLError",
   "metodo": "web oficial",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-02",
   "web": "https://ypfb.gob.bo"
  },
  "Yamana / Agua Rica": {
   "metodo": "sin datos",
-  "revisado": "2026-10-26"
+  "revisado": "2026-11-02"
  }
 }
