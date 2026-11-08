@@ -1,22 +1,22 @@
 {
- "updated": "2026-11-07T15:46:15Z",
- "duration_s": 121.6,
- "total_items": 431,
+ "updated": "2026-11-08T16:03:41Z",
+ "duration_s": 121.9,
+ "total_items": 441,
  "sources": [
   {
    "name": "Google News Argentina #1",
    "country": "AR",
    "kind": "google",
    "ok": true,
-   "fetched": 25,
-   "kept": 2
+   "fetched": 26,
+   "kept": 3
   },
   {
    "name": "Google News Argentina #2",
    "country": "AR",
    "kind": "google",
    "ok": true,
-   "fetched": 44,
+   "fetched": 39,
    "kept": 3
   },
   {
@@ -32,23 +32,23 @@
    "country": "AR",
    "kind": "google",
    "ok": true,
-   "fetched": 28,
-   "kept": 0
+   "fetched": 29,
+   "kept": 4
   },
   {
    "name": "Google News Argentina #5",
    "country": "AR",
    "kind": "google",
    "ok": true,
-   "fetched": 26,
-   "kept": 0
+   "fetched": 24,
+   "kept": 2
   },
   {
    "name": "Google News Argentina #6",
    "country": "AR",
    "kind": "google",
    "ok": true,
-   "fetched": 25,
+   "fetched": 17,
    "kept": 0
   },
   {
@@ -64,7 +64,7 @@
    "country": "CL",
    "kind": "google",
    "ok": true,
-   "fetched": 50,
+   "fetched": 46,
    "kept": 5
   },
   {
@@ -73,14 +73,14 @@
    "kind": "google",
    "ok": true,
    "fetched": 34,
-   "kept": 1
+   "kept": 0
   },
   {
    "name": "Google News Chile #4",
    "country": "CL",
    "kind": "google",
    "ok": true,
-   "fetched": 28,
+   "fetched": 29,
    "kept": 0
   },
   {
@@ -96,7 +96,7 @@
    "country": "BO",
    "kind": "google",
    "ok": true,
-   "fetched": 49,
+   "fetched": 45,
    "kept": 0
   },
   {
@@ -104,7 +104,7 @@
    "country": "BO",
    "kind": "google",
    "ok": true,
-   "fetched": 34,
+   "fetched": 33,
    "kept": 0
   },
   {
@@ -112,7 +112,7 @@
    "country": "BO",
    "kind": "google",
    "ok": true,
-   "fetched": 27,
+   "fetched": 29,
    "kept": 0
   },
   {
@@ -128,7 +128,7 @@
    "country": "PY",
    "kind": "google",
    "ok": true,
-   "fetched": 49,
+   "fetched": 45,
    "kept": 0
   },
   {
@@ -136,7 +136,7 @@
    "country": "PY",
    "kind": "google",
    "ok": true,
-   "fetched": 34,
+   "fetched": 33,
    "kept": 0
   },
   {
@@ -144,7 +144,7 @@
    "country": "PY",
    "kind": "google",
    "ok": true,
-   "fetched": 27,
+   "fetched": 29,
    "kept": 0
   },
   {
@@ -160,7 +160,7 @@
    "country": "UY",
    "kind": "google",
    "ok": true,
-   "fetched": 49,
+   "fetched": 45,
    "kept": 1
   },
   {
@@ -168,7 +168,7 @@
    "country": "UY",
    "kind": "google",
    "ok": true,
-   "fetched": 34,
+   "fetched": 33,
    "kept": 0
   },
   {
@@ -176,7 +176,7 @@
    "country": "UY",
    "kind": "google",
    "ok": true,
-   "fetched": 27,
+   "fetched": 29,
    "kept": 0
   },
   {
@@ -184,31 +184,31 @@
    "country": "BR",
    "kind": "google",
    "ok": true,
-   "fetched": 25,
-   "kept": 1
+   "fetched": 26,
+   "kept": 0
   },
   {
    "name": "Google News Brasil #2",
    "country": "BR",
    "kind": "google",
    "ok": true,
-   "fetched": 33,
-   "kept": 11
+   "fetched": 27,
+   "kept": 8
   },
   {
    "name": "Google News Brasil #3",
    "country": "BR",
    "kind": "google",
    "ok": true,
-   "fetched": 25,
-   "kept": 1
+   "fetched": 27,
+   "kept": 0
   },
   {
    "name": "Google News Brasil #4",
    "country": "BR",
    "kind": "google",
    "ok": true,
-   "fetched": 20,
+   "fetched": 25,
    "kept": 0
   },
   {
