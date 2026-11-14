@@ -1,14 +1,14 @@
 {
- "updated": "2026-11-13T17:17:27Z",
- "duration_s": 123.0,
- "total_items": 494,
+ "updated": "2026-11-14T15:53:47Z",
+ "duration_s": 122.3,
+ "total_items": 506,
  "sources": [
   {
    "name": "Google News Argentina #1",
    "country": "AR",
    "kind": "google",
    "ok": true,
-   "fetched": 26,
+   "fetched": 27,
    "kept": 0
   },
   {
@@ -16,39 +16,39 @@
    "country": "AR",
    "kind": "google",
    "ok": true,
-   "fetched": 41,
-   "kept": 2
+   "fetched": 40,
+   "kept": 3
   },
   {
    "name": "Google News Argentina #3",
    "country": "AR",
    "kind": "google",
    "ok": true,
-   "fetched": 34,
-   "kept": 4
+   "fetched": 33,
+   "kept": 3
   },
   {
    "name": "Google News Argentina #4",
    "country": "AR",
    "kind": "google",
    "ok": true,
-   "fetched": 25,
-   "kept": 3
+   "fetched": 23,
+   "kept": 2
   },
   {
    "name": "Google News Argentina #5",
    "country": "AR",
    "kind": "google",
    "ok": true,
-   "fetched": 26,
-   "kept": 7
+   "fetched": 31,
+   "kept": 4
   },
   {
    "name": "Google News Argentina #6",
    "country": "AR",
    "kind": "google",
    "ok": true,
-   "fetched": 25,
+   "fetched": 19,
    "kept": 0
   },
   {
@@ -72,15 +72,15 @@
    "country": "CL",
    "kind": "google",
    "ok": true,
-   "fetched": 32,
-   "kept": 1
+   "fetched": 33,
+   "kept": 0
   },
   {
    "name": "Google News Chile #4",
    "country": "CL",
    "kind": "google",
    "ok": true,
-   "fetched": 25,
+   "fetched": 23,
    "kept": 0
   },
   {
@@ -96,7 +96,7 @@
    "country": "BO",
    "kind": "google",
    "ok": true,
-   "fetched": 47,
+   "fetched": 46,
    "kept": 0
   },
   {
@@ -104,7 +104,7 @@
    "country": "BO",
    "kind": "google",
    "ok": true,
-   "fetched": 33,
+   "fetched": 34,
    "kept": 0
   },
   {
@@ -112,7 +112,7 @@
    "country": "BO",
    "kind": "google",
    "ok": true,
-   "fetched": 26,
+   "fetched": 24,
    "kept": 0
   },
   {
@@ -128,7 +128,7 @@
    "country": "PY",
    "kind": "google",
    "ok": true,
-   "fetched": 47,
+   "fetched": 46,
    "kept": 0
   },
   {
@@ -136,7 +136,7 @@
    "country": "PY",
    "kind": "google",
    "ok": true,
-   "fetched": 33,
+   "fetched": 34,
    "kept": 0
   },
   {
@@ -144,7 +144,7 @@
    "country": "PY",
    "kind": "google",
    "ok": true,
-   "fetched": 26,
+   "fetched": 24,
    "kept": 0
   },
   {
@@ -160,7 +160,7 @@
    "country": "UY",
    "kind": "google",
    "ok": true,
-   "fetched": 47,
+   "fetched": 46,
    "kept": 1
   },
   {
@@ -168,7 +168,7 @@
    "country": "UY",
    "kind": "google",
    "ok": true,
-   "fetched": 33,
+   "fetched": 34,
    "kept": 0
   },
   {
@@ -176,7 +176,7 @@
    "country": "UY",
    "kind": "google",
    "ok": true,
-   "fetched": 26,
+   "fetched": 24,
    "kept": 0
   },
   {
@@ -184,7 +184,7 @@
    "country": "BR",
    "kind": "google",
    "ok": true,
-   "fetched": 27,
+   "fetched": 26,
    "kept": 0
   },
   {
@@ -200,7 +200,7 @@
    "country": "BR",
    "kind": "google",
    "ok": true,
-   "fetched": 24,
+   "fetched": 26,
    "kept": 1
   },
   {
@@ -208,8 +208,8 @@
    "country": "BR",
    "kind": "google",
    "ok": true,
-   "fetched": 26,
-   "kept": 1
+   "fetched": 22,
+   "kept": 2
   },
   {
    "name": "EconoJournal",
@@ -225,7 +225,7 @@
    "kind": "sector",
    "ok": true,
    "fetched": 25,
-   "kept": 0
+   "kept": 2
   },
   {
    "name": "Minería Chilena",
