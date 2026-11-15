@@ -1,22 +1,22 @@
 {
- "updated": "2026-11-14T15:53:47Z",
- "duration_s": 122.3,
- "total_items": 506,
+ "updated": "2026-11-15T16:28:44Z",
+ "duration_s": 210.6,
+ "total_items": 510,
  "sources": [
   {
    "name": "Google News Argentina #1",
    "country": "AR",
    "kind": "google",
    "ok": true,
-   "fetched": 27,
-   "kept": 0
+   "fetched": 23,
+   "kept": 2
   },
   {
    "name": "Google News Argentina #2",
    "country": "AR",
    "kind": "google",
    "ok": true,
-   "fetched": 40,
+   "fetched": 41,
    "kept": 3
   },
   {
@@ -33,22 +33,22 @@
    "kind": "google",
    "ok": true,
    "fetched": 23,
-   "kept": 2
+   "kept": 0
   },
   {
    "name": "Google News Argentina #5",
    "country": "AR",
    "kind": "google",
    "ok": true,
-   "fetched": 31,
-   "kept": 4
+   "fetched": 28,
+   "kept": 0
   },
   {
    "name": "Google News Argentina #6",
    "country": "AR",
    "kind": "google",
    "ok": true,
-   "fetched": 19,
+   "fetched": 8,
    "kept": 0
   },
   {
@@ -56,7 +56,7 @@
    "country": "CL",
    "kind": "google",
    "ok": true,
-   "fetched": 26,
+   "fetched": 24,
    "kept": 0
   },
   {
@@ -64,7 +64,7 @@
    "country": "CL",
    "kind": "google",
    "ok": true,
-   "fetched": 46,
+   "fetched": 47,
    "kept": 5
   },
   {
@@ -80,7 +80,7 @@
    "country": "CL",
    "kind": "google",
    "ok": true,
-   "fetched": 23,
+   "fetched": 24,
    "kept": 0
   },
   {
@@ -88,7 +88,7 @@
    "country": "BO",
    "kind": "google",
    "ok": true,
-   "fetched": 27,
+   "fetched": 24,
    "kept": 0
   },
   {
@@ -120,7 +120,7 @@
    "country": "PY",
    "kind": "google",
    "ok": true,
-   "fetched": 27,
+   "fetched": 24,
    "kept": 0
   },
   {
@@ -152,7 +152,7 @@
    "country": "UY",
    "kind": "google",
    "ok": true,
-   "fetched": 27,
+   "fetched": 24,
    "kept": 0
   },
   {
@@ -184,7 +184,7 @@
    "country": "BR",
    "kind": "google",
    "ok": true,
-   "fetched": 26,
+   "fetched": 27,
    "kept": 0
   },
   {
@@ -193,23 +193,23 @@
    "kind": "google",
    "ok": true,
    "fetched": 34,
-   "kept": 13
+   "kept": 12
   },
   {
    "name": "Google News Brasil #3",
    "country": "BR",
    "kind": "google",
    "ok": true,
-   "fetched": 26,
-   "kept": 1
+   "fetched": 29,
+   "kept": 0
   },
   {
    "name": "Google News Brasil #4",
    "country": "BR",
    "kind": "google",
    "ok": true,
-   "fetched": 22,
-   "kept": 2
+   "fetched": 25,
+   "kept": 1
   },
   {
    "name": "EconoJournal",
@@ -225,15 +225,16 @@
    "kind": "sector",
    "ok": true,
    "fetched": 25,
-   "kept": 2
+   "kept": 0
   },
   {
    "name": "Minería Chilena",
    "country": "CL",
    "kind": "sector",
-   "ok": true,
-   "fetched": 10,
-   "kept": 0
+   "ok": false,
+   "fetched": 0,
+   "kept": 0,
+   "error": "URLError: <urlopen error timed out>"
   },
   {
    "name": "epbr",
