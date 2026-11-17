@@ -1,14 +1,14 @@
 {
- "updated": "2026-11-16T19:43:02Z",
- "duration_s": 167.5,
- "total_items": 534,
+ "updated": "2026-11-17T18:41:08Z",
+ "duration_s": 207.6,
+ "total_items": 548,
  "sources": [
   {
    "name": "Google News Argentina #1",
    "country": "AR",
    "kind": "google",
    "ok": true,
-   "fetched": 22,
+   "fetched": 19,
    "kept": 1
   },
   {
@@ -16,8 +16,8 @@
    "country": "AR",
    "kind": "google",
    "ok": true,
-   "fetched": 41,
-   "kept": 5
+   "fetched": 43,
+   "kept": 3
   },
   {
    "name": "Google News Argentina #3",
@@ -33,39 +33,39 @@
    "kind": "google",
    "ok": true,
    "fetched": 26,
-   "kept": 3
+   "kept": 1
   },
   {
    "name": "Google News Argentina #5",
    "country": "AR",
    "kind": "google",
    "ok": true,
-   "fetched": 41,
-   "kept": 11
+   "fetched": 57,
+   "kept": 8
   },
   {
    "name": "Google News Argentina #6",
    "country": "AR",
    "kind": "google",
    "ok": true,
-   "fetched": 10,
-   "kept": 0
+   "fetched": 19,
+   "kept": 2
   },
   {
    "name": "Google News Chile #1",
    "country": "CL",
    "kind": "google",
    "ok": true,
-   "fetched": 23,
-   "kept": 0
+   "fetched": 21,
+   "kept": 1
   },
   {
    "name": "Google News Chile #2",
    "country": "CL",
    "kind": "google",
    "ok": true,
-   "fetched": 46,
-   "kept": 4
+   "fetched": 49,
+   "kept": 5
   },
   {
    "name": "Google News Chile #3",
@@ -73,14 +73,14 @@
    "kind": "google",
    "ok": true,
    "fetched": 33,
-   "kept": 1
+   "kept": 0
   },
   {
    "name": "Google News Chile #4",
    "country": "CL",
    "kind": "google",
    "ok": true,
-   "fetched": 28,
+   "fetched": 25,
    "kept": 0
   },
   {
@@ -88,7 +88,7 @@
    "country": "BO",
    "kind": "google",
    "ok": true,
-   "fetched": 23,
+   "fetched": 21,
    "kept": 0
   },
   {
@@ -96,7 +96,7 @@
    "country": "BO",
    "kind": "google",
    "ok": true,
-   "fetched": 46,
+   "fetched": 47,
    "kept": 0
   },
   {
@@ -112,7 +112,7 @@
    "country": "BO",
    "kind": "google",
    "ok": true,
-   "fetched": 28,
+   "fetched": 27,
    "kept": 0
   },
   {
@@ -120,7 +120,7 @@
    "country": "PY",
    "kind": "google",
    "ok": true,
-   "fetched": 23,
+   "fetched": 21,
    "kept": 0
   },
   {
@@ -128,7 +128,7 @@
    "country": "PY",
    "kind": "google",
    "ok": true,
-   "fetched": 46,
+   "fetched": 47,
    "kept": 0
   },
   {
@@ -144,7 +144,7 @@
    "country": "PY",
    "kind": "google",
    "ok": true,
-   "fetched": 28,
+   "fetched": 27,
    "kept": 0
   },
   {
@@ -152,7 +152,7 @@
    "country": "UY",
    "kind": "google",
    "ok": true,
-   "fetched": 23,
+   "fetched": 21,
    "kept": 0
   },
   {
@@ -160,7 +160,7 @@
    "country": "UY",
    "kind": "google",
    "ok": true,
-   "fetched": 46,
+   "fetched": 47,
    "kept": 1
   },
   {
@@ -176,7 +176,7 @@
    "country": "UY",
    "kind": "google",
    "ok": true,
-   "fetched": 28,
+   "fetched": 27,
    "kept": 0
   },
   {
@@ -184,8 +184,8 @@
    "country": "BR",
    "kind": "google",
    "ok": true,
-   "fetched": 27,
-   "kept": 1
+   "fetched": 29,
+   "kept": 0
   },
   {
    "name": "Google News Brasil #2",
@@ -193,14 +193,14 @@
    "kind": "google",
    "ok": true,
    "fetched": 33,
-   "kept": 12
+   "kept": 11
   },
   {
    "name": "Google News Brasil #3",
    "country": "BR",
    "kind": "google",
    "ok": true,
-   "fetched": 28,
+   "fetched": 30,
    "kept": 1
   },
   {
@@ -208,8 +208,8 @@
    "country": "BR",
    "kind": "google",
    "ok": true,
-   "fetched": 28,
-   "kept": 2
+   "fetched": 32,
+   "kept": 0
   },
   {
    "name": "EconoJournal",
@@ -217,7 +217,7 @@
    "kind": "sector",
    "ok": true,
    "fetched": 10,
-   "kept": 1
+   "kept": 0
   },
   {
    "name": "Data Energía",
@@ -225,15 +225,16 @@
    "kind": "sector",
    "ok": true,
    "fetched": 25,
-   "kept": 2
+   "kept": 1
   },
   {
    "name": "Minería Chilena",
    "country": "CL",
    "kind": "sector",
-   "ok": true,
-   "fetched": 10,
-   "kept": 0
+   "ok": false,
+   "fetched": 0,
+   "kept": 0,
+   "error": "URLError: <urlopen error timed out>"
   },
   {
    "name": "epbr",
