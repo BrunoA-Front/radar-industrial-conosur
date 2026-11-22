@@ -1,22 +1,22 @@
 {
- "updated": "2026-11-21T16:51:57Z",
- "duration_s": 120.8,
- "total_items": 662,
+ "updated": "2026-11-22T17:15:19Z",
+ "duration_s": 122.0,
+ "total_items": 679,
  "sources": [
   {
    "name": "Google News Argentina #1",
    "country": "AR",
    "kind": "google",
    "ok": true,
-   "fetched": 21,
-   "kept": 0
+   "fetched": 25,
+   "kept": 1
   },
   {
    "name": "Google News Argentina #2",
    "country": "AR",
    "kind": "google",
    "ok": true,
-   "fetched": 44,
+   "fetched": 40,
    "kept": 5
   },
   {
@@ -25,15 +25,15 @@
    "kind": "google",
    "ok": true,
    "fetched": 34,
-   "kept": 3
+   "kept": 4
   },
   {
    "name": "Google News Argentina #4",
    "country": "AR",
    "kind": "google",
    "ok": true,
-   "fetched": 26,
-   "kept": 10
+   "fetched": 32,
+   "kept": 1
   },
   {
    "name": "Google News Argentina #5",
@@ -41,14 +41,14 @@
    "kind": "google",
    "ok": true,
    "fetched": 100,
-   "kept": 54
+   "kept": 9
   },
   {
    "name": "Google News Argentina #6",
    "country": "AR",
    "kind": "google",
    "ok": true,
-   "fetched": 21,
+   "fetched": 10,
    "kept": 0
   },
   {
@@ -56,15 +56,15 @@
    "country": "CL",
    "kind": "google",
    "ok": true,
-   "fetched": 20,
-   "kept": 1
+   "fetched": 25,
+   "kept": 0
   },
   {
    "name": "Google News Chile #2",
    "country": "CL",
    "kind": "google",
    "ok": true,
-   "fetched": 47,
+   "fetched": 43,
    "kept": 4
   },
   {
@@ -80,7 +80,7 @@
    "country": "CL",
    "kind": "google",
    "ok": true,
-   "fetched": 27,
+   "fetched": 32,
    "kept": 0
   },
   {
@@ -88,7 +88,7 @@
    "country": "BO",
    "kind": "google",
    "ok": true,
-   "fetched": 21,
+   "fetched": 52,
    "kept": 0
   },
   {
@@ -96,7 +96,7 @@
    "country": "BO",
    "kind": "google",
    "ok": true,
-   "fetched": 45,
+   "fetched": 41,
    "kept": 0
   },
   {
@@ -104,15 +104,15 @@
    "country": "BO",
    "kind": "google",
    "ok": true,
-   "fetched": 34,
-   "kept": 0
+   "fetched": 100,
+   "kept": 4
   },
   {
    "name": "Google News Bolivia #4",
    "country": "BO",
    "kind": "google",
    "ok": true,
-   "fetched": 27,
+   "fetched": 32,
    "kept": 0
   },
   {
@@ -120,7 +120,7 @@
    "country": "PY",
    "kind": "google",
    "ok": true,
-   "fetched": 21,
+   "fetched": 52,
    "kept": 0
   },
   {
@@ -128,7 +128,7 @@
    "country": "PY",
    "kind": "google",
    "ok": true,
-   "fetched": 45,
+   "fetched": 41,
    "kept": 0
   },
   {
@@ -136,7 +136,7 @@
    "country": "PY",
    "kind": "google",
    "ok": true,
-   "fetched": 34,
+   "fetched": 100,
    "kept": 0
   },
   {
@@ -144,7 +144,7 @@
    "country": "PY",
    "kind": "google",
    "ok": true,
-   "fetched": 27,
+   "fetched": 32,
    "kept": 0
   },
   {
@@ -152,7 +152,7 @@
    "country": "UY",
    "kind": "google",
    "ok": true,
-   "fetched": 21,
+   "fetched": 52,
    "kept": 0
   },
   {
@@ -160,7 +160,7 @@
    "country": "UY",
    "kind": "google",
    "ok": true,
-   "fetched": 45,
+   "fetched": 41,
    "kept": 1
   },
   {
@@ -168,7 +168,7 @@
    "country": "UY",
    "kind": "google",
    "ok": true,
-   "fetched": 34,
+   "fetched": 100,
    "kept": 0
   },
   {
@@ -176,7 +176,7 @@
    "country": "UY",
    "kind": "google",
    "ok": true,
-   "fetched": 27,
+   "fetched": 32,
    "kept": 0
   },
   {
@@ -184,23 +184,23 @@
    "country": "BR",
    "kind": "google",
    "ok": true,
-   "fetched": 27,
-   "kept": 1
+   "fetched": 30,
+   "kept": 0
   },
   {
    "name": "Google News Brasil #2",
    "country": "BR",
    "kind": "google",
    "ok": true,
-   "fetched": 30,
-   "kept": 11
+   "fetched": 26,
+   "kept": 9
   },
   {
    "name": "Google News Brasil #3",
    "country": "BR",
    "kind": "google",
    "ok": true,
-   "fetched": 53,
+   "fetched": 31,
    "kept": 1
   },
   {
@@ -208,7 +208,7 @@
    "country": "BR",
    "kind": "google",
    "ok": true,
-   "fetched": 26,
+   "fetched": 25,
    "kept": 1
   },
   {
@@ -225,7 +225,7 @@
    "kind": "sector",
    "ok": true,
    "fetched": 25,
-   "kept": 1
+   "kept": 0
   },
   {
    "name": "Minería Chilena",
