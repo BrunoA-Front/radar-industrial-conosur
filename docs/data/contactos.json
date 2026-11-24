@@ -385,6 +385,11 @@
   ],
   "web": "https://www.centralpuerto.com/"
  },
+ "Chevron": {
+  "error": "HTTPError",
+  "metodo": "sin datos",
+  "revisado": "2026-11-24"
+ },
  "Codelco": {
   "emails": [],
   "fuentes": [
@@ -1219,6 +1224,27 @@
   "revisado": "2026-11-23",
   "telefonos": [],
   "web": "https://totalenergies.com.ar/es"
+ },
+ "Trafigura": {
+  "emails": [
+   {
+    "email": "enquiries@trafigura.com",
+    "tipo": "otro"
+   },
+   {
+    "email": "media@trafigura.com",
+    "tipo": "otro"
+   }
+  ],
+  "fuentes": [
+   "https://www.trafigura.com/",
+   "https://www.trafigura.com/contact/"
+  ],
+  "metodo": "wikidata",
+  "portal": null,
+  "revisado": "2026-11-24",
+  "telefonos": [],
+  "web": "https://www.trafigura.com/"
  },
  "Transener": {
   "emails": [
