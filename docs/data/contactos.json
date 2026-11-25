@@ -16,7 +16,7 @@
   ],
   "metodo": "web oficial",
   "portal": "https://www.360energy.solar/proveedores",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-25",
   "telefonos": [
    "+54 (0230) 4384-555",
    "+54 (0230) 4386-960"
@@ -52,11 +52,11 @@
     "tipo": "otro"
    },
    {
-    "email": "singapore@albemarle.com",
+    "email": "invest@albemarle.com",
     "tipo": "otro"
    },
    {
-    "email": "u003ecommau@albemarle.com",
+    "email": "media@albemarle.com",
     "tipo": "otro"
    }
   ],
@@ -67,7 +67,7 @@
   ],
   "metodo": "web oficial",
   "portal": "https://www.albemarle.com/us/en/suppliers",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-25",
   "telefonos": [
    "080000000000",
    "+56552341500",
@@ -93,7 +93,7 @@
   ],
   "metodo": "web oficial",
   "portal": "https://www.aluar.com.ar/proveedores",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-25",
   "telefonos": [
    "+541143137593",
    "+541143119026",
@@ -109,7 +109,7 @@
   ],
   "metodo": "web oficial",
   "portal": "https://andradegutierrez.com.br/Fornecedores.aspx",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-25",
   "telefonos": [
    "+55 11 5502-2003"
   ],
@@ -152,7 +152,7 @@
   ],
   "metodo": "web oficial",
   "portal": "https://ausenco.com/what-we-do/epc-epcm-contracting/",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-25",
   "telefonos": [],
   "web": "https://ausenco.com"
  },
@@ -175,32 +175,19 @@
   ],
   "metodo": "web oficial",
   "portal": "https://www.bakerhughes.com/suppliers",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-25",
   "telefonos": [],
   "web": "https://www.bakerhughes.com/"
  },
  "Barrick": {
-  "emails": [
-   {
-    "email": "hr@barrick.com",
-    "tipo": "otro"
-   },
-   {
-    "email": "investor@barrick.com",
-    "tipo": "otro"
-   },
-   {
-    "email": "media@barrick.com",
-    "tipo": "otro"
-   }
-  ],
+  "emails": [],
   "fuentes": [
    "https://www.barrick.com/English/home/default.aspx",
    "https://www.barrick.com/English/about/contact-us/default.aspx"
   ],
   "metodo": "web oficial",
   "portal": "https://www.barrick.com/suppliers/",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-25",
   "telefonos": [
    "+562 340 2022"
   ],
@@ -214,7 +201,7 @@
   ],
   "metodo": "web oficial",
   "portal": "https://www.bechtel.com/supplier/",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-25",
   "telefonos": [
    "+1 571 392 6300",
    "+1 602 368 1500",
@@ -237,7 +224,7 @@
   ],
   "metodo": "web oficial",
   "portal": "https://www.besalco.cl/registro-proveedores/",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-25",
   "telefonos": [
    "+56223380800",
    "+56) 2 2338 0800"
@@ -265,7 +252,7 @@
   ],
   "metodo": "web oficial",
   "portal": "https://cbmm.com/en/operations/suppliers",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-25",
   "telefonos": [
    "+55 (34) 3669-3000",
    "+55 (34) 3201-4500",
@@ -282,7 +269,7 @@
   ],
   "metodo": "web oficial",
   "portal": "https://supplier.ariba.com",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-25",
   "telefonos": [
    "+54 11) 4849-6100"
   ],
@@ -307,7 +294,7 @@
   ],
   "metodo": "web oficial",
   "portal": null,
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-25",
   "telefonos": [
    "+18667703722",
    "+54 11 5776 7800"
@@ -315,21 +302,10 @@
   "web": "https://calfrac.com"
  },
  "Camuzzi": {
-  "emails": [],
-  "fuentes": [
-   "https://www.camuzzigas.com/",
-   "https://www.camuzzigas.com/proveedores/",
-   "https://www.camuzzigas.com/contacto/"
-  ],
+  "error": "TimeoutError",
   "metodo": "web oficial",
-  "portal": "https://www.camuzzigas.com/proveedores/",
-  "revisado": "2026-10-26",
-  "telefonos": [
-   "54-11-5776-7000",
-   "08105553698",
-   "0810 666 0810"
-  ],
-  "web": "https://www.camuzzigas.com/"
+  "revisado": "2026-11-25",
+  "web": "https://camuzzigas.com"
  },
  "Capstone Copper": {
   "emails": [
@@ -345,7 +321,7 @@
   ],
   "metodo": "web oficial",
   "portal": "https://capstonecopper.com/supplier-hub/",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-25",
   "telefonos": [
    "+56 55 269 3001",
    "+56 55 2693040",
@@ -379,7 +355,7 @@
   ],
   "metodo": "web oficial",
   "portal": "https://www.centralpuerto.com/proveedores/",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-25",
   "telefonos": [
    "+541143175000"
   ],
@@ -399,7 +375,7 @@
   ],
   "metodo": "web oficial",
   "portal": "https://codelco.com/proveedores",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-25",
   "telefonos": [
    "+56 2 2690 3000",
    "+56 227120247"
@@ -465,7 +441,7 @@
   ],
   "metodo": "web oficial",
   "portal": "https://www.edenor.com:443/institucional/registro-de-proveedores",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-25",
   "telefonos": [
    "08006661000",
    "08006664005",
@@ -509,7 +485,7 @@
   ],
   "metodo": "web oficial",
   "portal": "https://www.eramet.com/en/suppliers/",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-25",
   "telefonos": [],
   "web": "https://www.eramet.com:443/en/"
  },
@@ -532,7 +508,7 @@
   ],
   "metodo": "web oficial",
   "portal": "https://www.first-quantum.com/suppliers/",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-25",
   "telefonos": [
    "+14163616400",
    "+15149827555",
@@ -547,7 +523,7 @@
   ],
   "metodo": "web oficial",
   "portal": "https://www.fluor.com/services-and-expertise/procurement",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-25",
   "telefonos": [],
   "web": "https://www.fluor.com/"
  },
@@ -560,7 +536,7 @@
   ],
   "metodo": "web oficial",
   "portal": null,
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-25",
   "telefonos": [
    "0892142150",
    "+ 5411 4328-4121",
@@ -595,11 +571,11 @@
    "https://www.glencore.com/",
    "https://www.glencore.com/contact-us",
    "https://www.glencore.com/media-and-insights/media-contacts",
-   "https://www.glencore.com/en/suppliers"
+   "https://www.glencore.com/es/suppliers"
   ],
   "metodo": "web oficial",
   "portal": "https://www.glencore.com/suppliers",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-25",
   "telefonos": [],
   "web": "https://www.glencore.com/"
  },
@@ -610,7 +586,7 @@
   ],
   "metodo": "web oficial",
   "portal": "https://hifglobal.com/home?initialRequestUrl=http%3a%2f%2fhifglobal.com%2fproveedores",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-25",
   "telefonos": [],
   "web": "https://hifglobal.com"
  },
@@ -639,7 +615,7 @@
   ],
   "metodo": "web oficial",
   "portal": null,
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-25",
   "telefonos": [
    "+54115542700",
    "+44 (0)207 730 1111",
@@ -669,7 +645,7 @@
   ],
   "metodo": "web oficial",
   "portal": "https://www.hatch.com/en/About-Us/Information-for-Suppliers-Registration",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-25",
   "telefonos": [],
   "web": "https://www.hatch.com/"
  },
@@ -695,7 +671,7 @@
   ],
   "metodo": "web oficial",
   "portal": null,
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-25",
   "telefonos": [
    "+ 542614819000",
    "+541148601100",
@@ -726,7 +702,7 @@
   ],
   "metodo": "web oficial",
   "portal": null,
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-25",
   "telefonos": [
    "+17786538092",
    "+54 11 5263 0616"
@@ -747,7 +723,7 @@
   ],
   "metodo": "web oficial",
   "portal": null,
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-25",
   "telefonos": [],
   "web": "https://lundinmining.com"
  },
@@ -770,7 +746,7 @@
   ],
   "metodo": "web oficial",
   "portal": "https://www.milicic.com.ar/proveedores/",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-25",
   "telefonos": [
    "+54 341 4095600",
    "+54 264 424 2245",
@@ -787,7 +763,7 @@
   ],
   "metodo": "web oficial",
   "portal": null,
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-25",
   "telefonos": [
    "866-433-4345"
   ],
@@ -802,7 +778,7 @@
   ],
   "metodo": "web oficial",
   "portal": "https://newmont.com/suppliers-new/default.aspx",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-25",
   "telefonos": [
    "303-863-7414",
    "303-837-5837",
@@ -859,7 +835,7 @@
   ],
   "metodo": "web oficial",
   "portal": "https://pampa.com/proveedores/",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-25",
   "telefonos": [
    "+54 (11) 4344-6000"
   ],
@@ -888,7 +864,7 @@
   ],
   "metodo": "web oficial",
   "portal": null,
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-25",
   "telefonos": [
    "(604) 684-1175",
    "+1 (604) 684-1175",
@@ -910,11 +886,11 @@
   ],
   "metodo": "web oficial",
   "portal": "https://canalfornecedor.petrobras.com.br/",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-25",
   "telefonos": [
    "0800 728 9001",
    "+5540209876",
-   "0647-1118-9457"
+   "+55 21 96940-2116"
   ],
   "web": "https://petrobras.com.br"
  },
@@ -949,7 +925,7 @@
   ],
   "metodo": "web oficial",
   "portal": "https://www.riotinto.com/en/about/suppliers",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-25",
   "telefonos": [],
   "web": "https://www.riotinto.com/"
  },
@@ -966,7 +942,7 @@
   ],
   "metodo": "web oficial",
   "portal": "https://www.slb.com/partners/embedded-partners-and-suppliers/responsible-supply-chain",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-25",
   "telefonos": [],
   "web": "https://www.slb.com/"
  },
@@ -978,7 +954,7 @@
   ],
   "metodo": "web oficial",
   "portal": null,
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-25",
   "telefonos": [
    "+56-2-2425-2000"
   ],
@@ -1002,7 +978,7 @@
   ],
   "metodo": "web oficial",
   "portal": null,
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-25",
   "telefonos": [
    "+55 213232-5300",
    "+55 133328-6500",
@@ -1028,37 +1004,20 @@
   "web": "https://www.shell.com.ar/"
  },
  "Siemens Energy": {
-  "emails": [
-   {
-    "email": "contact-latam@siemens-energy.com",
-    "tipo": "general"
-   },
-   {
-    "email": "contact.cn@siemens-energy.com",
-    "tipo": "general"
-   },
-   {
-    "email": "contact.om@siemens-energy.com",
-    "tipo": "general"
-   },
-   {
-    "email": "contact@siemens-energy.com",
-    "tipo": "general"
-   }
-  ],
+  "emails": [],
   "fuentes": [
-   "https://www.siemens-energy.com/global/en/home.html",
-   "https://www.siemens-energy.com/global/en/home/contact.html"
+   "https://www.omterra.com/global/en/home.html?sitc=wwsei10002",
+   "https://www.omterra.com/global/en/home/investor-relations/investor-relations-team.html"
   ],
   "metodo": "web oficial",
-  "portal": "https://www.siemens-energy.com/global/en/home/supplier.html",
-  "revisado": "2026-10-26",
+  "portal": "https://www.omterra.com/global/en/home/company/supplier.html",
+  "revisado": "2026-11-25",
   "telefonos": [
-   "+49 911 6505 6505",
-   "+49 89 207084040",
-   "0800 011-9489"
+   "+49 172 5744423",
+   "+49 174 1766254",
+   "+49 174 4053704"
   ],
-  "web": "https://www.siemens-energy.com/global/en/home.html"
+  "web": "https://www.omterra.com/global/en/home.html?sitc=wwsei10002"
  },
  "Sigdo Koppers": {
   "error": "URLError",
@@ -1098,7 +1057,7 @@
   ],
   "metodo": "web oficial",
   "portal": "https://www.suzano.com.br/fornecedores",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-25",
   "telefonos": [
    "+55-11-4000-1222",
    "0800-283-8383",
@@ -1132,7 +1091,7 @@
   ],
   "metodo": "web oficial",
   "portal": "https://www.tgs.com.ar/?page_id=10153",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-25",
   "telefonos": [
    "01137515100",
    "0087566587499",
@@ -1172,7 +1131,7 @@
   ],
   "metodo": "web oficial",
   "portal": null,
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-25",
   "telefonos": [
    "6046994000",
    "86 2120370000",
@@ -1195,7 +1154,7 @@
   ],
   "metodo": "web oficial",
   "portal": null,
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-25",
   "telefonos": [
    "+54 2657 432106",
    "+54 351 497 2416",
@@ -1265,7 +1224,7 @@
   ],
   "metodo": "web oficial",
   "portal": "https://www.transener.com.ar/proveedores/",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-25",
   "telefonos": [
    "+54 11) 5167-9100",
    "0800-333-3904",
@@ -1281,7 +1240,7 @@
   ],
   "metodo": "web oficial",
   "portal": null,
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-25",
   "telefonos": [
    "+598) 2604 6660 18",
    "+598) 4722 4644",
@@ -1330,7 +1289,7 @@
   ],
   "metodo": "web oficial",
   "portal": "https://vale.com/suppliers",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-25",
   "telefonos": [
    "+55 (21) 3485-5000",
    "0800-701-1616",
@@ -1351,7 +1310,7 @@
   ],
   "metodo": "web oficial",
   "portal": "https://www.vestas.com/en/about/our-partners/Suppliers",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-25",
   "telefonos": [],
   "web": "https://www.vestas.com/en"
  },
@@ -1378,7 +1337,7 @@
   ],
   "metodo": "web oficial",
   "portal": "https://www.vistaenergy.com/proveedores",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-25",
   "telefonos": [
    "+525515557104",
    "+54111137548500",
@@ -1411,7 +1370,7 @@
   ],
   "metodo": "web oficial",
   "portal": "https://www.weatherford.com/about-us/supplier-resources/",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-25",
   "telefonos": [],
   "web": "https://www.weatherford.com/"
  },
@@ -1422,7 +1381,7 @@
   ],
   "metodo": "web oficial",
   "portal": "https://www.worley.com/en/solutions/services-and-technology/enhance-project-delivery/procurement-and-supply-chain-management",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-25",
   "telefonos": [],
   "web": "https://www.worley.com/"
  },
@@ -1433,7 +1392,7 @@
   ],
   "metodo": "web oficial",
   "portal": "https://ypf.com/error.html?errorCode=404%26errorMessage=Pagina%20no%20disponible",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-25",
   "telefonos": [],
   "web": "https://ypf.com"
  },
@@ -1460,7 +1419,7 @@
   ],
   "metodo": "web oficial",
   "portal": "https://ypfluz.com/Proveedores",
-  "revisado": "2026-10-26",
+  "revisado": "2026-11-25",
   "telefonos": [
    "+54 011 54417910",
    "+54 381 4911 884",
